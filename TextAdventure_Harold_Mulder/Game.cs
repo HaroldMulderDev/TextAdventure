@@ -94,7 +94,10 @@ namespace ZuulCS
 			Console.WriteLine("Type 'help' if you need help.");
 			Console.WriteLine();
 			Console.WriteLine(player.CurrentRoom.getLongDescription());
-		}
+            Console.WriteLine();
+            Console.WriteLine("______________________________________________________________________________");
+            Console.WriteLine();
+        }
 
 		/**
 	     * Given a command, process (that is: execute) the command.
@@ -185,14 +188,8 @@ namespace ZuulCS
 			Console.WriteLine("You are lost. You are alone.");
 			Console.WriteLine("You wander around at the university.");
 			Console.WriteLine();
-            if (!command.hasSecondWord())
-            {
-                Console.WriteLine("Your command words are:");
-                parser.showCommands();
-            } else
-            {
-                
-            }
+            Console.WriteLine("Your command words are:");
+            parser.showCommands();
 		}
 
 		/**
@@ -320,7 +317,7 @@ namespace ZuulCS
 
             Console.WriteLine(player.CurrentRoom.getLongDescription());
             Console.WriteLine();
-            Console.WriteLine(indent + player.CurrentRoom.Inventory.Items.Count + " Item(s) found!");
+            Console.WriteLine(indent + player.CurrentRoom.Inventory.Items.Count + " Item(s) in the room!");
             Console.WriteLine();
             for (int i = 0; i < player.CurrentRoom.Inventory.Items.Count; i++)
             {

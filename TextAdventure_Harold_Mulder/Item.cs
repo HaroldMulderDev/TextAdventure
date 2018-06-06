@@ -9,11 +9,19 @@ namespace TextAdventure_Harold_Mulder
     class Item
     {
 
-        private string name;
-        private string description;
+        protected string name;
+        protected string description;
 
-        internal string Name { get => name; }
-        internal string Description { get => description; }
+
+        protected bool hasPickupEvent;
+        protected bool hasRoomEvent;
+
+
+        internal string Name { get => name;}
+        internal string Description { get => description;}
+
+        internal bool HasPickupEvent { get => hasPickupEvent;}
+        internal bool HasRoomEvent { get => hasRoomEvent;}
 
         public Item()
         {
@@ -21,7 +29,24 @@ namespace TextAdventure_Harold_Mulder
             name = "item";
             description = "A generic game item.";
 
-    }
+            hasPickupEvent = false;
+            hasRoomEvent = false;
+                
+        }
+
+        public virtual void handleRoomEvent(Character character)
+        {
+
+
+
+        }
+
+        public virtual void handlePickupEvent(Character character)
+        {
+
+
+
+        }
 
     }
 }

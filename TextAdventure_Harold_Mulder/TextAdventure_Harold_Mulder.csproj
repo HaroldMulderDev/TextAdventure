@@ -45,6 +45,7 @@
     <Compile Include="Character.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandLibrary.cs" />
+    <Compile Include="CursedCrystal.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Item.cs" />

@@ -18,7 +18,7 @@ namespace ZuulCS
 	     */
 		public Room(string description)
 		{
-            inventory = new Inventory(30);
+            inventory = new Inventory(6);
             for (int i = 0; i < 5; i++)
             {
 

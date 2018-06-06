@@ -24,6 +24,9 @@ namespace TextAdventure_Harold_Mulder
 
         private Character host;
 
+        private string name;
+        private string description;
+
         private uint triggerType;
         internal uint TriggerType { get => triggerType; }
 
@@ -47,6 +50,9 @@ namespace TextAdventure_Harold_Mulder
             effectType = new List<uint>();
             conditions = new List<uint>();
             endConditions = new List<uint>();
+
+            name = "Effect";
+            description = "A general status effect.";
 
         }
 
@@ -189,5 +195,20 @@ namespace TextAdventure_Harold_Mulder
 
 
         }
+
+        public void setName(string name)
+        {
+
+            this.name = name;
+
+        }
+
+        public void setDescription(string description)
+        {
+
+            this.description = name;
+
+        }
+
     }
 }

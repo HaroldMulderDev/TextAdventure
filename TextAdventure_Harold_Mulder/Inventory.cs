@@ -65,6 +65,10 @@ namespace TextAdventure_Harold_Mulder
                         items.Remove(items[i]);
                         return true;
 
+                    } else
+                    {
+                        return false;
+
                     }
                 }
 

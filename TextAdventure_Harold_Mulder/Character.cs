@@ -20,6 +20,7 @@ namespace TextAdventure_Harold_Mulder
         private Game host;
 
         private List<StatusEffect> currentStatusEffects;
+
         public Character()
         {
 
@@ -30,7 +31,7 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        public void createStatusEffects(Character host, uint trigger , List<uint> effects, List<uint> effectMultiplier, List<uint> conditions, List<uint> endConditions, List<uint> endConditionMultipliers)
+        public void createStatusEffects(Character host, uint trigger , uint effect, uint effectMultiplier, uint condition, uint endCondition, uint endConditionMultiplier, string name, string description)
         {
 
             StatusEffect s = new StatusEffect(host);
@@ -45,61 +46,53 @@ namespace TextAdventure_Harold_Mulder
             }
 
             // Add all effects
-            for (int i = effects.Count-1; i >= 0; i--)
+            
+
+            switch (effect)
             {
 
-                switch (effects[i])
-                {
+                case 0:
+                    s.enableDamage(effectMultiplier);
+                    break;
 
-                    case 0:
-                        s.enableDamage(effectMultiplier[i]);
-                        break;
+                case 1:
+                    s.enableHeal(effectMultiplier);
+                    break;
 
-                    case 1:
-                        s.enableHeal(effectMultiplier[i]);
-                        break;
-
-                    case 2:
-                        s.enableImmunity();
-                        break;
-                }
-
+                case 2:
+                    s.enableImmunity();
+                    break;
             }
+
+            
 
 
             // Add all Conditions
-            for (int i = conditions.Count-1; i >= 0; i--)
+            
+            switch (condition)
             {
 
-                switch (conditions[i])
-                {
-
-                    case 0:
-                        s.enableAlwaysActive();
-                        break;
-
-                }
+                case 0:
+                    s.enableAlwaysActive();
+                    break;
 
             }
 
-            for (int i = endConditions.Count-1; i >= 0; i--)
+            switch (endCondition)
             {
 
-                switch (endConditions[i])
-                {
+                case 0:
+                    s.enableEndTimer(endConditionMultiplier);
+                    break;
 
-                    case 0:
-                        s.enableEndTimer(endConditionMultipliers[i]);
-                        break;
-
-                    case 1:
-                        s.enableEndBandage(endConditionMultipliers[i]);
-                        break;
-
-                }
+                case 1:
+                    s.enableEndBandage(endConditionMultiplier);
+                    break;
 
             }
 
+            s.setName(name);
+            s.setDescription(description);
             currentStatusEffects.Add(s);
 
             

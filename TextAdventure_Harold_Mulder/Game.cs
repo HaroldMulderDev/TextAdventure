@@ -17,7 +17,6 @@ namespace ZuulCS
 
             parser = new Parser();
             player = new Player();
-            player.createStatusEffects(player, 0, new List<uint> { 0 }, new List<uint> { 5 }, new List<uint> { 0 }, new List<uint> { 1 }, new List<uint> { 1 });
             createRooms();
 
             //i1 = new Inventory(5);
@@ -64,6 +63,7 @@ namespace ZuulCS
             office.setExit("west", lab);
 
             player.CurrentRoom = outside;  // start game outside
+            theatre.Inventory.addItem(new CursedCrystal());
 
         }
         /**
@@ -248,11 +248,13 @@ namespace ZuulCS
 
                     Console.WriteLine(indent + "You take all items on the ground and put them in your bag.");
                     Console.WriteLine();
-                    for (int i = player.CurrentRoom.Inventory.Items.Count-1; i >= 0; i--)
+                    for (int i = player.CurrentRoom.Inventory.Items.Count-1; i >= 0; i --)
                     {
 
-                        Console.WriteLine(indent + indent + "Added " + player.CurrentRoom.Inventory.Items[i].Name);
-                        player.CurrentRoom.Inventory.sendItem(player.Inventory, player.CurrentRoom.Inventory.Items[i].Name);
+                        Item currentItem = player.CurrentRoom.Inventory.Items[i];
+                        Console.WriteLine(indent + indent + "Added " + currentItem.Name);
+                        player.CurrentRoom.Inventory.sendItem(player.Inventory, currentItem.Name);
+                        player.checkBadItem(currentItem);
 
                     }
                     
@@ -271,10 +273,13 @@ namespace ZuulCS
                 if(player.Inventory.SpaceLeft > 0)
                 {
 
-                    if(player.CurrentRoom.Inventory.sendItem(player.Inventory, command.getSecondWord()))
+                    Item item = player.CurrentRoom.Inventory.sendItem(player.Inventory, command.getSecondWord());
+
+                    if (item != null)
                     {
 
                         Console.WriteLine(indent + indent + "Added " + command.getSecondWord());
+                        player.checkBadItem(item);
 
                     }
 
@@ -301,7 +306,7 @@ namespace ZuulCS
             } else
             {
 
-                if(player.Inventory.sendItem(player.CurrentRoom.Inventory, command.getSecondWord()))
+                if(player.Inventory.sendItem(player.CurrentRoom.Inventory, command.getSecondWord()) != null )
                 {
 
                     Console.WriteLine(indent + indent + "Dropped " + command.getSecondWord());

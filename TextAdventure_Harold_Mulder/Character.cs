@@ -112,6 +112,23 @@ namespace TextAdventure_Harold_Mulder
 
                 }
 
+                for(int ii = currentStatusEffects[i].EndConditions.Count-1; ii >= 0; ii--)
+                {
+
+                    if(currentStatusEffects[i].EndConditions[ii] == amount)
+                    {
+
+                        if (currentStatusEffects[i].reduceTimer(1))
+                        {
+
+                            removeEffect(i);
+
+                        }
+
+                    }
+
+                }
+
             }
         }
 
@@ -153,6 +170,33 @@ namespace TextAdventure_Harold_Mulder
             {
                 return false;
             }
+        }
+
+        public void removeEffect(int i)
+        {
+
+            currentStatusEffects[i] = null;
+            currentStatusEffects.RemoveAt(i);
+
+        }
+
+        public void checkBadItem(Item item)
+        {
+
+            if (item.HasPickupEvent)
+            {
+
+                item.handlePickupEvent(this);
+
+            }
+
+            if (item.HasRoomEvent)
+            {
+
+                item.handleRoomEvent(this);
+
+            }
+
         }
 
     }

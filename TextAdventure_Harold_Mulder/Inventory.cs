@@ -52,7 +52,7 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        public bool sendItem(Inventory other, string key){
+        public Item sendItem(Inventory other, string key){
 
             for (int i = items.Count-1; i >= 0; i--)
             {
@@ -61,13 +61,9 @@ namespace TextAdventure_Harold_Mulder
 
                     if (other.addItem(items[i]))
                     {
-
+                        Item item = items[i];
                         items.Remove(items[i]);
-                        return true;
-
-                    } else
-                    {
-                        return false;
+                        return item;
 
                     }
                 }
@@ -75,7 +71,7 @@ namespace TextAdventure_Harold_Mulder
             }
 
             Console.WriteLine(indent + "Cannot find that item!");
-            return false;
+            return null;
 
         }
 

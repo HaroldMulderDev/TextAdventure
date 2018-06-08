@@ -32,7 +32,8 @@ namespace TextAdventure_Harold_Mulder
 
         List<uint> effectType;
         List<uint> conditions;
-        List<uint> endConditions;
+        private List<uint> endConditions;
+        internal List<uint> EndConditions { get => endConditions; }
 
         private uint effectTimer;
         private uint maxEffectTimer;
@@ -207,6 +208,25 @@ namespace TextAdventure_Harold_Mulder
         {
 
             this.description = name;
+
+        }
+
+        public bool reduceTimer(uint amount)
+        {
+            if(effectTimer - amount <= 0)
+            {
+
+                return true;
+
+            } else
+            {
+
+                effectTimer--;
+                return false;
+
+            }
+            
+
 
         }
 

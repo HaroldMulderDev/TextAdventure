@@ -141,13 +141,6 @@ namespace ZuulCS
                     GDL.LongLine();
                     GDL.Break();
                     break;
-                case "yomom":
-                    GDL.Break();
-                    Console.WriteLine(GDL.I() + "no u");
-                    GDL.Break();
-                    GDL.LongLine();
-                    GDL.Break();
-                    break;
                 case "clear":
                     GDL.Break();
                     ClearConsole(command);

@@ -22,7 +22,6 @@ namespace ZuulCS
 				"quit",
 				"help",
                 "look",
-                "yomom",
                 "clear",
                 "take",
                 "drop"

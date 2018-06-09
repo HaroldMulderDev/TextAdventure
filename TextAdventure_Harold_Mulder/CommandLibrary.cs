@@ -1,4 +1,5 @@
 ﻿using System;
+using TextAdventure_Harold_Mulder;
 
 namespace ZuulCS
 {
@@ -6,12 +7,16 @@ namespace ZuulCS
 	{
 		// an array that holds all valid command words
 		private string[] validCommands;
+        private GeneralDataLibrary GDL;
 
 		/**
 	     * Constructor - initialise the command words.
 	     */
 		public CommandLibrary()
 		{
+
+            GDL = new GeneralDataLibrary();
+
 			validCommands = new string[] {
 				"go",
 				"quit",
@@ -50,7 +55,7 @@ namespace ZuulCS
 					Console.Write(", ");
 				}
 			}
-			Console.WriteLine();
+			GDL.Break();
 		}
 	}
 }

@@ -8,12 +8,12 @@ namespace ZuulCS
 	{
 		private Parser parser;
         private Player player;
-        private string indent;
+        private GeneralDataLibrary GDL;
         
         public Game ()
 		{
 
-            indent = "    ";
+            GDL = new GeneralDataLibrary();
 
             parser = new Parser();
             player = new Player();
@@ -88,15 +88,15 @@ namespace ZuulCS
 	     */
 		private void printWelcome()
 		{
-			Console.WriteLine();
+            GDL.Break();
 			Console.WriteLine("Welcome to Zuul!");
 			Console.WriteLine("Zuul is a new, incredibly boring adventure game.");
 			Console.WriteLine("Type 'help' if you need help.");
-			Console.WriteLine();
-			Console.WriteLine(player.CurrentRoom.getLongDescription());
-            Console.WriteLine();
-            Console.WriteLine("______________________________________________________________________________");
-            Console.WriteLine();
+            GDL.Break();
+            Console.WriteLine(player.CurrentRoom.getLongDescription());
+            GDL.Break();
+            GDL.LongLine();
+            GDL.Break();
         }
 
 		/**
@@ -109,67 +109,65 @@ namespace ZuulCS
 			bool wantToQuit = false;
 
 			if(command.isUnknown()) {
-				Console.WriteLine(indent + "I don't know what you mean...");
+				Console.WriteLine(GDL.I() + "I don't know what you mean...");
 				return false;
 			}
 
 			string commandWord = command.getCommandWord();
 			switch (commandWord) {
 				case "help":
-                    Console.WriteLine();
+                    GDL.Break();
                     printHelp(command);
-                    Console.WriteLine();
-                    Console.WriteLine("______________________________________________________________________________");
-                    Console.WriteLine();
+                    GDL.Break();
                     break;
 				case "go":
-                    Console.WriteLine();
+                    GDL.Break();
                     goRoom(command);
-                    Console.WriteLine();
-                    Console.WriteLine("______________________________________________________________________________");
-                    Console.WriteLine();
+                    GDL.Break();
+                    
+                    GDL.Break();
                     break;
 				case "quit":
-                    Console.WriteLine();
+                    GDL.Break();
                     wantToQuit = true;
-                    Console.WriteLine();
-                    Console.WriteLine("______________________________________________________________________________");
-                    Console.WriteLine();
+                    GDL.Break();
+                    GDL.LongLine();
+                    GDL.Break();
                     break;
                 case "look":
-                    Console.WriteLine();
+                    GDL.Break();
                     lookAround();
-                    Console.WriteLine();
-                    Console.WriteLine("______________________________________________________________________________");
-                    Console.WriteLine();
+                    GDL.Break();
+                    GDL.LongLine();
+                    GDL.Break();
                     break;
                 case "yomom":
-                    Console.WriteLine();
-                    Console.WriteLine(indent + "no u");
-                    Console.WriteLine();
-                    Console.WriteLine("______________________________________________________________________________");
-                    Console.WriteLine();
+                    GDL.Break();
+                    Console.WriteLine(GDL.I() + "no u");
+                    GDL.Break();
+                    GDL.LongLine();
+                    GDL.Break();
                     break;
                 case "clear":
-                    Console.WriteLine();
+                    GDL.Break();
                     ClearConsole(command);
-                    Console.WriteLine();
-                    Console.WriteLine("______________________________________________________________________________");
-                    Console.WriteLine();
+                    GDL.Break();
+                    GDL.LongLine();
+                    GDL.Break();
                     break;
                 case "take":
-                    Console.WriteLine();
+                    GDL.Break();
                     takeItem(command);
-                    Console.WriteLine();
-                    Console.WriteLine("______________________________________________________________________________");
-                    Console.WriteLine();
+                    GDL.Break();
+                    GDL.LongLine();
+                    GDL.Break();
                     break;
                 case "drop":
-                    Console.WriteLine();
+                    GDL.Break();
                     dropItem(command);
-                    Console.WriteLine();
-                    Console.WriteLine("______________________________________________________________________________");
-                    Console.WriteLine();
+                    GDL.Break();
+                    GDL.LongLine();
+                    GDL.Break();
                     break;
 			}
 
@@ -185,12 +183,53 @@ namespace ZuulCS
 	     */
 		private void printHelp(Command command)
 		{
-			Console.WriteLine("You are lost. You are alone.");
-			Console.WriteLine("You wander around at the university.");
-			Console.WriteLine();
-            Console.WriteLine("Your command words are:");
-            parser.showCommands();
+            if (command.hasSecondWord())
+            {
+
+                switch (command.getSecondWord())
+                {
+
+                    case "help":
+                        printCommandHelp("Shows global helpful information.", "'help': Shows a list of possible commands, 'help <command>': Shows details on a specific command.");
+                        break;
+                    case "go":
+                        printCommandHelp("Moves the player to another room.", "'go <direction>': Moves the player to the room in given direction.");
+                        break;
+                    case "quit":
+                        printCommandHelp("Quits the current game.", "'quit': Closes the current game.");
+                        break;
+                    case "look":
+                        printCommandHelp("Checks the current room and player condition.", "'look': Show the current room's items, exits and description. also shows player health and bag space.");
+                        break;
+                    case "clear":
+                        printCommandHelp("Clears the console of text.", "'clear': Removes all the messages from the console and display the current room's description.");
+                        break;
+                    case "take":
+                        printCommandHelp("Picks up one or more items from the current room.", "'take': Attempt to take all item from the current room, 'take <item>': picks up specific item from current room.");
+                        break;
+                    case "drop":
+                        printCommandHelp("Drops item into the current room.", "'drop <item>': Drops specific item from the players bag into the current room.");
+                        break;
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Your command words are:");
+                parser.showCommands();
+            }
 		}
+
+        private void printCommandHelp(string description, string usage)
+        {
+
+            GDL.Break();
+            Console.WriteLine(GDL.I() + "Description: " + description);
+            Console.WriteLine(GDL.I() + "Usage: " + usage);
+            GDL.Break();
+            GDL.MidLine();
+
+        }
 
 		/**
 	     * Try to go to one direction. If there is an exit, enter the new
@@ -209,7 +248,7 @@ namespace ZuulCS
             } else
             {
 
-                Console.WriteLine(indent + "The clear function does not use a second word!");
+                Console.WriteLine(GDL.I() + "The clear function does not use a second word!");
 
             }
         }
@@ -218,7 +257,7 @@ namespace ZuulCS
 		{
 			if(!command.hasSecondWord()) {
 				// if there is no second word, we don't know where to go...
-				Console.WriteLine(indent + "Go where?");
+				Console.WriteLine(GDL.I() + "Go where?");
 				return;
 			}
 
@@ -228,7 +267,7 @@ namespace ZuulCS
 			Room nextRoom = player.CurrentRoom.getExit(direction);
 
 			if (nextRoom == null) {
-				Console.WriteLine(indent + "There is no door to " + direction+"!");
+				Console.WriteLine(GDL.I() + "There is no door to " + direction+"!");
 			} else {
                 player.CurrentRoom = nextRoom;
 				Console.WriteLine(player.CurrentRoom.getLongDescription());
@@ -246,13 +285,13 @@ namespace ZuulCS
                 if(player.CurrentRoom.Inventory.Items.Count < player.Inventory.SpaceLeft)
                 {
 
-                    Console.WriteLine(indent + "You take all items on the ground and put them in your bag.");
-                    Console.WriteLine();
+                    Console.WriteLine(GDL.I() + "You take all items on the ground and put them in your bag.");
+                    GDL.Break();
                     for (int i = player.CurrentRoom.Inventory.Items.Count-1; i >= 0; i --)
                     {
 
                         Item currentItem = player.CurrentRoom.Inventory.Items[i];
-                        Console.WriteLine(indent + indent + "Added " + currentItem.Name);
+                        Console.WriteLine(GDL.I(2) + "Added " + currentItem.Name);
                         player.CurrentRoom.Inventory.sendItem(player.Inventory, currentItem.Name);
                         player.checkBadItem(currentItem);
 
@@ -262,7 +301,7 @@ namespace ZuulCS
                 } else
                 {
 
-                    Console.WriteLine(indent + "Not enough space in inventory to take item(s)!");
+                    Console.WriteLine(GDL.I() + "Not enough space in inventory to take item(s)!");
 
                 }
 
@@ -278,7 +317,7 @@ namespace ZuulCS
                     if (item != null)
                     {
 
-                        Console.WriteLine(indent + indent + "Added " + command.getSecondWord());
+                        Console.WriteLine(GDL.I(2) + "Added " + command.getSecondWord());
                         player.checkBadItem(item);
 
                     }
@@ -287,7 +326,7 @@ namespace ZuulCS
                 } else
                 {
 
-                    Console.WriteLine(indent + "Not enough space in inventory to take item!");
+                    Console.WriteLine(GDL.I() + "Not enough space in inventory to take item!");
 
                 }
 
@@ -301,7 +340,7 @@ namespace ZuulCS
             if (!command.hasSecondWord())
             {
 
-                Console.WriteLine(indent + "drop what?");
+                Console.WriteLine(GDL.I() + "drop what?");
 
             } else
             {
@@ -309,7 +348,7 @@ namespace ZuulCS
                 if(player.Inventory.sendItem(player.CurrentRoom.Inventory, command.getSecondWord()) != null )
                 {
 
-                    Console.WriteLine(indent + indent + "Dropped " + command.getSecondWord());
+                    Console.WriteLine(GDL.I(2) + "Dropped " + command.getSecondWord());
 
                 }
                 
@@ -321,19 +360,18 @@ namespace ZuulCS
         {
 
             Console.WriteLine(player.CurrentRoom.getLongDescription());
-            Console.WriteLine();
-            Console.WriteLine(indent + player.CurrentRoom.Inventory.Items.Count + " Item(s) in the room!");
-            Console.WriteLine();
+            GDL.Break();
+            Console.WriteLine(GDL.I() + player.CurrentRoom.Inventory.Items.Count + " Item(s) in the room!");
+            GDL.Break();
             for (int i = 0; i < player.CurrentRoom.Inventory.Items.Count; i++)
             {
 
-                Console.WriteLine(indent + indent + (i + 1) + " | " + player.CurrentRoom.Inventory.Items[i].Name + ": " + player.CurrentRoom.Inventory.Items[i].Description);
+                Console.WriteLine(GDL.I(2) + (i + 1) + " | " + player.CurrentRoom.Inventory.Items[i].Name + ": " + player.CurrentRoom.Inventory.Items[i].Description);
 
             }
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine(indent + "health: " + player.Health.ToString());
-            Console.WriteLine(indent + "room in bag: " + player.Inventory.SpaceLeft);
+            GDL.Break(2);
+            Console.WriteLine(GDL.I() + "health: " + player.Health.ToString());
+            Console.WriteLine(GDL.I() + "room in bag: " + player.Inventory.SpaceLeft);
 
         }
 

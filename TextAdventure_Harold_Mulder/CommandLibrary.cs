@@ -24,7 +24,8 @@ namespace ZuulCS
                 "look",
                 "clear",
                 "take",
-                "drop"
+                "drop",
+                "bag"
 			};
 		}
 

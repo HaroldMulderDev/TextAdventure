@@ -75,5 +75,20 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        public Item sendItem(Inventory other, int i)
+        {
+
+            if (other.addItem(items[i]))
+            {
+                Item item = items[i];
+                items.Remove(items[i]);
+                return item;
+
+            }
+
+            return null;
+
+        }
+
     }
 }

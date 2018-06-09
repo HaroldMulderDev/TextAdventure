@@ -19,7 +19,7 @@ namespace TextAdventure_Harold_Mulder
 
             longLine = ("______________________________________________________________________________");
             midLine = ("________________________________________");
-            shortLine = ("__________________");
+            shortLine = ("____________________");
 
             indent = "    ";
         }
@@ -37,10 +37,10 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        public void ShortLine()
+        public void ShortLine(string ind)
         {
 
-            Console.WriteLine(shortLine);
+            Console.WriteLine(ind + shortLine);
 
         }
 

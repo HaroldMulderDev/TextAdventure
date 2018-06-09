@@ -189,29 +189,32 @@ namespace ZuulCS
             if (command.hasSecondWord())
             {
 
+                List<List<string>> commandDescriptions = new List<List<string>>(parser.Commands.CommandDescriptions);
+                List<List<string>> commandUsages = new List<List<string>>(parser.Commands.CommandUsages);
+
                 switch (command.getSecondWord())
                 {
 
                     case "help":
-                        printCommandHelp("Shows global helpful information.", "'help': Shows a list of possible commands, 'help <command>': Shows details on a specific command.");
+                        printCommandHelp(commandDescriptions[0][0], commandUsages[0]);
                         break;
                     case "go":
-                        printCommandHelp("Moves the player to another room.", "'go <direction>': Moves the player to the room in given direction.");
+                        printCommandHelp(commandDescriptions[1][0], commandUsages[1]);
                         break;
                     case "quit":
-                        printCommandHelp("Quits the current game.", "'quit': Closes the current game.");
+                        printCommandHelp(commandDescriptions[2][0], commandUsages[2]);
                         break;
                     case "look":
-                        printCommandHelp("Checks the current room and player condition.", "'look': Show the current room's items, exits and description. also shows player health and bag space.");
+                        printCommandHelp(commandDescriptions[3][0], commandUsages[3]);
                         break;
                     case "clear":
-                        printCommandHelp("Clears the console of text.", "'clear': Removes all the messages from the console and display the current room's description.");
+                        printCommandHelp(commandDescriptions[4][0], commandUsages[4]);
                         break;
                     case "take":
-                        printCommandHelp("Picks up one or more items from the current room.", "'take': Attempt to take all item from the current room, 'take <item>': picks up first item with given name from current room, 'take <number>': Picks up item with given index.");
+                        printCommandHelp(commandDescriptions[5][0], commandUsages[5]);
                         break;
                     case "drop":
-                        printCommandHelp("Drops item into the current room.", "'drop <item>': Drops specific item from the players bag into the current room.");
+                        printCommandHelp(commandDescriptions[6][0], commandUsages[6]);
                         break;
                 }
 
@@ -223,14 +226,24 @@ namespace ZuulCS
             }
         }
 
-        private void printCommandHelp(string description, string usage)
+        private void printCommandHelp(string description, List<string> usage)
         {
 
             GDL.Break();
-            Console.WriteLine(GDL.I() + "Description: " + description);
-            Console.WriteLine(GDL.I() + "Usage: " + usage);
+            Console.WriteLine(GDL.I() + "Description: ");
+            GDL.MidLine(GDL.I());
             GDL.Break();
-            GDL.MidLine();
+            Console.WriteLine(GDL.I(2) + description);
+            GDL.Break(2);
+            Console.WriteLine(GDL.I() +  "Usage: ");
+            GDL.MidLine(GDL.I());
+            GDL.Break();
+            for (int i = 0; i < usage.Count; i++)
+            {
+                Console.WriteLine(GDL.I(2) + usage[i]);
+            }
+            GDL.Break(2);
+            GDL.LongLine();
 
         }
 
@@ -325,9 +338,10 @@ namespace ZuulCS
                     Item item = null;
                     if (int.TryParse(command.getSecondWord(), out num))
                     {
-                        num -= 1;
 
-                        if (num > 0 && num < player.CurrentRoom.Inventory.Items.Count)
+                        num--;
+
+                        if (num > -1 && num < player.CurrentRoom.Inventory.Items.Count)
                         {
 
                             item = player.CurrentRoom.Inventory.sendItem(player.Inventory, num);
@@ -376,11 +390,36 @@ namespace ZuulCS
             }
             else
             {
-
-                if (player.Inventory.sendItem(player.CurrentRoom.Inventory, command.getSecondWord()) != null)
+                int num;
+                Item item = null;
+                if (int.TryParse(command.getSecondWord(), out num))
                 {
 
-                    Console.WriteLine(GDL.I(2) + "Dropped " + command.getSecondWord());
+                    num--;
+
+                    if (num > -1 && num < player.Inventory.Items.Count)
+                    {
+
+                        item = player.Inventory.sendItem(player.CurrentRoom.Inventory, num);
+
+                    }
+                    else
+                    {
+
+                        Console.WriteLine(GDL.I() + "index is out of bounds!");
+
+                    }
+
+                } else
+                {
+
+                    item = player.Inventory.sendItem(player.CurrentRoom.Inventory, command.getSecondWord());
+
+                }
+                    if (item != null)
+                {
+
+                        Console.WriteLine(GDL.I(2) + "Dropped " + item.Name);
 
                 }
 

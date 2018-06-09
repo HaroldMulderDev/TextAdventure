@@ -16,9 +16,6 @@ namespace TextAdventure_Harold_Mulder
         private uint maxHealth;
         internal uint MaxHealth { get => maxHealth; } 
 
-        private string[] statusEffects;
-        private Game host;
-
         private List<StatusEffect> currentStatusEffects;
 
         public Character()

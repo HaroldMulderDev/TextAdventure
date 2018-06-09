@@ -17,8 +17,8 @@ namespace TextAdventure_Harold_Mulder
         public GeneralDataLibrary()
         {
 
-            longLine = ("______________________________________________________________________________");
-            midLine = ("________________________________________");
+            longLine = ("____________________________________________________________________________________");
+            midLine = ("___________________________________________________");
             shortLine = ("____________________");
 
             indent = "    ";
@@ -30,10 +30,10 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        public void MidLine()
+        public void MidLine(string ind)
         {
 
-            Console.WriteLine(midLine);
+            Console.WriteLine(ind + midLine);
 
         }
 

@@ -2,9 +2,11 @@
 
 namespace ZuulCS
 {
-	public class Parser
-	{
-		private CommandLibrary commands;  // holds all valid command words
+    public class Parser
+    {
+        private CommandLibrary commands;  // holds all valid command words
+
+        internal CommandLibrary Commands { get => commands; }
 
 		public Parser()
 		{

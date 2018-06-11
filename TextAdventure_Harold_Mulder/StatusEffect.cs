@@ -38,7 +38,6 @@ namespace TextAdventure_Harold_Mulder
         private uint effectTimer;
         private uint maxEffectTimer;
 
-        private uint bandageUsed;
         private uint bandageNeed;
 
         private uint damageAmount;

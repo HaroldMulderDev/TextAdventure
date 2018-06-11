@@ -135,7 +135,7 @@ namespace ZuulCS
                 new List<string>
                 {
 
-                    "'take': Attempt to take all item from the current room.",
+                    "'take': Attempt to take all items from the current room.",
                     "'take <item>': picks up first item with given name from current room.",
                     "'take <number>': Picks up item with given index."
 

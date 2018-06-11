@@ -9,8 +9,10 @@ namespace ZuulCS
 		private string description;
 		private Dictionary<string, Room> exits; // stores exits of this room.
         private Inventory inventory;
-        internal Inventory Inventory { get => inventory; }
+        private bool isLocked;
 
+        internal Inventory Inventory { get => inventory; }
+        internal bool IsLocked { get => isLocked; }
 		/**
 	     * Create a room described "description". Initially, it has no exits.
 	     * "description" is something like "in a kitchen" or "in an open court
@@ -19,15 +21,9 @@ namespace ZuulCS
 		public Room(string description)
 		{
             inventory = new Inventory(6);
-            for (int i = 0; i < 5; i++)
-            {
-
-                Item ii = new Item();
-                inventory.addItem(ii);
-
-            }
 			this.description = description;
 			exits = new Dictionary<string, Room>();
+            isLocked = false;
 		}
 
 		/**

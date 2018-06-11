@@ -306,18 +306,34 @@ namespace ZuulCS
                 if (player.CurrentRoom.Inventory.Items.Count < player.Inventory.SpaceLeft)
                 {
 
-                    Console.WriteLine(GDL.I() + "You take all items on the ground and put them in your bag.");
-                    GDL.Break();
-                    for (int i = player.CurrentRoom.Inventory.Items.Count - 1; i >= 0; i--)
+                    if (player.CurrentRoom.Inventory.Items.Count > 0)
                     {
 
-                        Item currentItem = player.CurrentRoom.Inventory.Items[i];
-                        Console.WriteLine(GDL.I(2) + "Added " + currentItem.Name);
-                        player.CurrentRoom.Inventory.sendItem(player.Inventory, currentItem.Name);
-                        player.checkBadItem(currentItem);
+                        Console.WriteLine(GDL.I() + "You take all items on the ground and put them in your bag.");
+                        GDL.Break();
+                        for (int i = player.CurrentRoom.Inventory.Items.Count - 1; i >= 0; i--)
+                        {
+
+                            Item currentItem = player.CurrentRoom.Inventory.Items[i];
+                            Console.WriteLine(GDL.I(2) + "Added " + currentItem.Name);
+                            player.CurrentRoom.Inventory.sendItem(player.Inventory, currentItem.Name);
+                            if (player.checkBadItem(currentItem, 0))
+                            {
+
+                                player.Inventory.Items.RemoveAt(i);
+                                currentItem = null;
+
+                            }
+
+                        }
 
                     }
+                    else
+                    {
 
+                        Console.WriteLine(GDL.I() + "Despite your hard work you find no item to pick up!");
+
+                    }
 
                 }
                 else
@@ -362,7 +378,7 @@ namespace ZuulCS
                     {
 
                         Console.WriteLine(GDL.I(2) + "Added " + item.Name);
-                        player.checkBadItem(item);
+                        player.checkBadItem(item, 0);
 
                     }
 

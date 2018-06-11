@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
@@ -16,6 +17,7 @@ namespace TextAdventure_Harold_Mulder
         protected bool hasPickupEvent;
         protected bool hasRoomEvent;
 
+        protected GeneralDataLibrary GDL;
 
         internal string Name { get => name;}
         internal string Description { get => description;}
@@ -31,17 +33,40 @@ namespace TextAdventure_Harold_Mulder
 
             hasPickupEvent = false;
             hasRoomEvent = false;
+
+            GDL = new GeneralDataLibrary();
                 
         }
 
-        public virtual void handleRoomEvent(Character character)
+        public virtual bool handleRoomEvent(Character character)
+        {
+
+            return false;
+
+        }
+
+        public virtual bool handlePickupEvent(Character character)
+        {
+
+            return false;
+
+        }
+
+        public virtual void use()
         {
 
 
 
         }
 
-        public virtual void handlePickupEvent(Character character)
+        public virtual void use(Character host)
+        {
+
+
+
+        }
+
+        public virtual void use(Room room)
         {
 
 

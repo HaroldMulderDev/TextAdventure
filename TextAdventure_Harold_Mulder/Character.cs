@@ -177,22 +177,42 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        public void checkBadItem(Item item)
+        public bool checkBadItem(Item item, int e)
         {
 
-            if (item.HasPickupEvent)
+            switch (e)
             {
 
-                item.handlePickupEvent(this);
+                case 0:
+                    if (item.HasPickupEvent)
+                    {
+
+                        if (item.handlePickupEvent(this))
+                        {
+
+                            return true;
+
+                        }
+
+                    }
+                    break;
+                case 1:
+                    if (item.HasRoomEvent)
+                    {
+
+                        if (item.handleRoomEvent(this))
+                        {
+
+                            return true;
+
+                        }
+
+                    }
+                    break;
 
             }
 
-            if (item.HasRoomEvent)
-            {
-
-                item.handleRoomEvent(this);
-
-            }
+            return false;
 
         }
 

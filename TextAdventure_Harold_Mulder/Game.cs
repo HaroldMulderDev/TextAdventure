@@ -40,6 +40,7 @@ namespace ZuulCS
 
             // initialise room exits
             DestroyedTower.setExit("down", Cavern, "As you jump down into the muddy cave below you realise you won't be able to get up again.");
+            DestroyedTower.Inventory.addItem(new Item());
 
             player.CurrentRoom = DestroyedTower;  // start game outside
             //theatre.Inventory.addItem(new CursedCrystal());
@@ -228,7 +229,7 @@ namespace ZuulCS
 
             if (nextRoom == null)
             {
-                Console.WriteLine(GeneralDataLibrary.I() + "There is no door to " + direction + "!");
+                Console.WriteLine(GeneralDataLibrary.I() + "You can not go there '" + direction + "' doesn't exist!");
             }
             else
             {
@@ -398,15 +399,17 @@ namespace ZuulCS
 
             Console.WriteLine(player.CurrentRoom.getLongDescription());
             GeneralDataLibrary.Break();
-            Console.WriteLine(GeneralDataLibrary.I() + player.CurrentRoom.Inventory.Items.Count + " Item(s) in the room!");
-            GeneralDataLibrary.Break();
-            for (int i = 0; i < player.CurrentRoom.Inventory.Items.Count; i++)
-            {
+            if(player.CurrentRoom.Inventory.Items.Count > 0) {
+                Console.WriteLine(GeneralDataLibrary.I() + player.CurrentRoom.Inventory.Items.Count + " Item(s) in the room!");
+                GeneralDataLibrary.Break();
+                for (int i = 0; i < player.CurrentRoom.Inventory.Items.Count; i++)
+                {
 
-                Console.WriteLine(GeneralDataLibrary.I(2) + (i + 1) + " | " + player.CurrentRoom.Inventory.Items[i].Name + ": " + player.CurrentRoom.Inventory.Items[i].Description);
+                    Console.WriteLine(GeneralDataLibrary.I(2) + (i + 1) + " | " + player.CurrentRoom.Inventory.Items[i].Name + ": " + player.CurrentRoom.Inventory.Items[i].Description);
 
+                }
+                GeneralDataLibrary.Break(2);
             }
-            GeneralDataLibrary.Break(2);
             Console.WriteLine(GeneralDataLibrary.I() + "health: " + player.Health.ToString());
             Console.WriteLine(GeneralDataLibrary.I() + "room in bag: " + player.Inventory.SpaceLeft);
 

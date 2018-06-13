@@ -12,7 +12,7 @@ namespace TextAdventure_Harold_Mulder
 
         protected string name;
         protected string description;
-
+        protected uint durability;
 
         protected bool hasPickupEvent;
         protected bool hasRoomEvent;
@@ -28,6 +28,7 @@ namespace TextAdventure_Harold_Mulder
 
             name = "item";
             description = "A generic game item.";
+            durability = 0;
 
             hasPickupEvent = false;
             hasRoomEvent = false;

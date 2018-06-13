@@ -32,35 +32,17 @@ namespace ZuulCS
         private void createRooms()
 
         {
-            Room outside, theatre, pub, lab, office, bunker;
+            Room DestroyedTower, Cavern;
 
             // create the rooms
-            outside = new Room("outside the main entrance of the university");
-            theatre = new Room("in a lecture theatre");
-            pub = new Room("in the campus pub");
-            lab = new Room("in a computing lab");
-            office = new Room("in the computing admin office");
-            bunker = new Room("A secret bunker hidden under the school");
+            DestroyedTower = new Room("in the remains of an old watchtower");
+            Cavern = new Room("in a hidden cavern under the old watch tower");
 
             // initialise room exits
-            outside.setExit("east", theatre);
-            outside.setExit("south", lab);
-            outside.setExit("west", pub);
+            DestroyedTower.setExit("down", Cavern, "As you jump down into the muddy cave below you realise you won't be able to get up again.");
 
-            theatre.setExit("west", outside);
-
-            pub.setExit("east", outside);
-
-            lab.setExit("north", outside);
-            lab.setExit("east", office);
-            lab.setExit("down", bunker);
-
-            bunker.setExit("up", lab);
-
-            office.setExit("west", lab);
-
-            player.CurrentRoom = outside;  // start game outside
-            theatre.Inventory.addItem(new CursedCrystal());
+            player.CurrentRoom = DestroyedTower;  // start game outside
+            //theatre.Inventory.addItem(new CursedCrystal());
 
         }
         /**
@@ -87,8 +69,8 @@ namespace ZuulCS
         private void printWelcome()
         {
             GeneralDataLibrary.Break();
-            Console.WriteLine("Welcome to Zuul!");
-            Console.WriteLine("Zuul is a new, incredibly boring adventure game.");
+            Console.WriteLine("Welcome to Dynasty!");
+            Console.WriteLine("You wake up with a headache looking around you seem to be in a tower of sorts.");
             Console.WriteLine("Type 'help' if you need help.");
             GeneralDataLibrary.Break();
             Console.WriteLine(player.CurrentRoom.getLongDescription());
@@ -109,6 +91,7 @@ namespace ZuulCS
             if (command.isUnknown())
             {
                 Console.WriteLine(GeneralDataLibrary.I() + "I don't know what you mean...");
+                Console.WriteLine(GeneralDataLibrary.I() + "Type: 'help' if you need help.");
                 return false;
             }
 
@@ -196,8 +179,13 @@ namespace ZuulCS
             }
             else
             {
+
+                Console.WriteLine("Type: 'help <command>' to show more information on a command.");
                 Console.WriteLine("Your command words are:");
+                GeneralDataLibrary.Break();
                 parser.showCommands();
+                GeneralDataLibrary.Break();
+                
             }
         }
 
@@ -244,6 +232,14 @@ namespace ZuulCS
             }
             else
             {
+                if (player.CurrentRoom.ExitEvents.ContainsKey(direction))
+                {
+
+                    Console.WriteLine(player.CurrentRoom.ExitEvents[direction]);
+                    GeneralDataLibrary.Break();
+
+                }
+
                 player.CurrentRoom = nextRoom;
                 Console.WriteLine(player.CurrentRoom.getLongDescription());
                 player.CheckTriggers(0);

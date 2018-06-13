@@ -59,7 +59,6 @@ namespace ZuulCS
 					Console.Write(", ");
 				}
 			}
-			GeneralDataLibrary.Break();
 		}
 
         public void initializeCommands()

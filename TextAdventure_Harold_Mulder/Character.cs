@@ -11,9 +11,14 @@ namespace TextAdventure_Harold_Mulder
     {
 
         private uint health;
-        internal uint Health { get => health; }
-
         private uint maxHealth;
+
+        private Item firstHand;
+        private Item secondhand;
+        private Item Armor;
+        private Item Special;
+
+        internal uint Health { get => health; }
         internal uint MaxHealth { get => maxHealth; } 
 
         private List<StatusEffect> currentStatusEffects;

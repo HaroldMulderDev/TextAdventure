@@ -22,7 +22,7 @@ namespace TextAdventure_Harold_Mulder
 
         public override bool handlePickupEvent(Character character)
         {
-            Console.WriteLine(GDL.I(3) + "As you pick up the crystal you feel an ancient curse enter your body!");
+            Console.WriteLine(GeneralDataLibrary.I(3) + "As you pick up the crystal you feel an ancient curse enter your body!");
             character.createStatusEffects(character, 0, 0, 5, 0, 0, 5, "GhostBite", "A ancient curse that eats its host from the inside.");
             return true;
 

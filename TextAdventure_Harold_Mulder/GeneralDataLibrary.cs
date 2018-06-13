@@ -5,53 +5,43 @@ using System.Text;
 
 namespace TextAdventure_Harold_Mulder
 {
-    public class GeneralDataLibrary
+    static public class GeneralDataLibrary
     {
 
-        string longLine;
-        string midLine;
-        string shortLine;
+        static string longLine = ("____________________________________________________________________________________");
+        static string midLine = ("___________________________________________________");
+        static string shortLine = ("____________________");
 
-        string indent;
+        static string indent = "    ";
 
-        public GeneralDataLibrary()
-        {
-
-            longLine = ("____________________________________________________________________________________");
-            midLine = ("___________________________________________________");
-            shortLine = ("____________________");
-
-            indent = "    ";
-        }
-
-        public void LongLine() {
+        static public void LongLine() {
 
             Console.WriteLine(longLine);
 
         }
 
-        public void MidLine(string ind)
+        static public void MidLine(string ind)
         {
 
             Console.WriteLine(ind + midLine);
 
         }
 
-        public void ShortLine(string ind)
+        static public void ShortLine(string ind)
         {
 
             Console.WriteLine(ind + shortLine);
 
         }
 
-        public string I()
+        static public string I()
         {
            
             return indent;
 
         }
 
-        public string I(int amount)
+        static public string I(int amount)
         {
             string str = "";
             for(int i = 0; i < amount; i++)
@@ -64,14 +54,14 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        public void Break()
+        static public void Break()
         {
 
             Console.WriteLine();
 
         }
 
-        public void Break(int amount)
+        static public void Break(int amount)
         {
 
             for (int i = 0; i < amount; i++)

@@ -8,12 +8,9 @@ namespace ZuulCS
     {
         private Parser parser;
         private Player player;
-        private GeneralDataLibrary GDL;
 
         public Game()
         {
-
-            GDL = new GeneralDataLibrary();
 
             parser = new Parser();
             player = new Player();
@@ -89,15 +86,15 @@ namespace ZuulCS
 	     */
         private void printWelcome()
         {
-            GDL.Break();
+            GeneralDataLibrary.Break();
             Console.WriteLine("Welcome to Zuul!");
             Console.WriteLine("Zuul is a new, incredibly boring adventure game.");
             Console.WriteLine("Type 'help' if you need help.");
-            GDL.Break();
+            GeneralDataLibrary.Break();
             Console.WriteLine(player.CurrentRoom.getLongDescription());
-            GDL.Break();
-            GDL.LongLine();
-            GDL.Break();
+            GeneralDataLibrary.Break();
+            GeneralDataLibrary.LongLine();
+            GeneralDataLibrary.Break();
         }
 
         /**
@@ -111,7 +108,7 @@ namespace ZuulCS
 
             if (command.isUnknown())
             {
-                Console.WriteLine(GDL.I() + "I don't know what you mean...");
+                Console.WriteLine(GeneralDataLibrary.I() + "I don't know what you mean...");
                 return false;
             }
 
@@ -119,58 +116,56 @@ namespace ZuulCS
             switch (commandWord)
             {
                 case "help":
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
                     printHelp(command);
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
                     break;
                 case "go":
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
                     goRoom(command);
-                    GDL.Break();
-
-                    GDL.Break();
+                    GeneralDataLibrary.Break(2);
                     break;
                 case "quit":
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
                     wantToQuit = true;
-                    GDL.Break();
-                    GDL.LongLine();
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     break;
                 case "look":
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
                     lookAround();
-                    GDL.Break();
-                    GDL.LongLine();
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     break;
                 case "clear":
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
                     ClearConsole(command);
-                    GDL.Break();
-                    GDL.LongLine();
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     break;
                 case "take":
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
                     takeItem(command);
-                    GDL.Break();
-                    GDL.LongLine();
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     break;
                 case "drop":
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
                     dropItem(command);
-                    GDL.Break();
-                    GDL.LongLine();
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     break;
                 case "bag":
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
                     displayBag();
-                    GDL.Break();
-                    GDL.LongLine();
-                    GDL.Break();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     break;
             }
 
@@ -189,33 +184,13 @@ namespace ZuulCS
             if (command.hasSecondWord())
             {
 
-                List<List<string>> commandDescriptions = new List<List<string>>(parser.Commands.CommandDescriptions);
-                List<List<string>> commandUsages = new List<List<string>>(parser.Commands.CommandUsages);
-
-                switch (command.getSecondWord())
+                if(parser.Commands.CommandData.ContainsKey(command.getSecondWord()))
                 {
 
-                    case "help":
-                        printCommandHelp(commandDescriptions[0][0], commandUsages[0]);
-                        break;
-                    case "go":
-                        printCommandHelp(commandDescriptions[1][0], commandUsages[1]);
-                        break;
-                    case "quit":
-                        printCommandHelp(commandDescriptions[2][0], commandUsages[2]);
-                        break;
-                    case "look":
-                        printCommandHelp(commandDescriptions[3][0], commandUsages[3]);
-                        break;
-                    case "clear":
-                        printCommandHelp(commandDescriptions[4][0], commandUsages[4]);
-                        break;
-                    case "take":
-                        printCommandHelp(commandDescriptions[5][0], commandUsages[5]);
-                        break;
-                    case "drop":
-                        printCommandHelp(commandDescriptions[6][0], commandUsages[6]);
-                        break;
+                    Console.Write(parser.Commands.CommandData[command.getSecondWord()]);
+                    GeneralDataLibrary.Break(2);
+                    GeneralDataLibrary.LongLine();
+
                 }
 
             }
@@ -224,27 +199,6 @@ namespace ZuulCS
                 Console.WriteLine("Your command words are:");
                 parser.showCommands();
             }
-        }
-
-        private void printCommandHelp(string description, List<string> usage)
-        {
-
-            GDL.Break();
-            Console.WriteLine(GDL.I() + "Description: ");
-            GDL.MidLine(GDL.I());
-            GDL.Break();
-            Console.WriteLine(GDL.I(2) + description);
-            GDL.Break(2);
-            Console.WriteLine(GDL.I() +  "Usage: ");
-            GDL.MidLine(GDL.I());
-            GDL.Break();
-            for (int i = 0; i < usage.Count; i++)
-            {
-                Console.WriteLine(GDL.I(2) + usage[i]);
-            }
-            GDL.Break(2);
-            GDL.LongLine();
-
         }
 
         /**
@@ -265,7 +219,7 @@ namespace ZuulCS
             else
             {
 
-                Console.WriteLine(GDL.I() + "The clear function does not use a second word!");
+                Console.WriteLine(GeneralDataLibrary.I() + "The clear function does not use a second word!");
 
             }
         }
@@ -275,7 +229,7 @@ namespace ZuulCS
             if (!command.hasSecondWord())
             {
                 // if there is no second word, we don't know where to go...
-                Console.WriteLine(GDL.I() + "Go where?");
+                Console.WriteLine(GeneralDataLibrary.I() + "Go where?");
                 return;
             }
 
@@ -286,7 +240,7 @@ namespace ZuulCS
 
             if (nextRoom == null)
             {
-                Console.WriteLine(GDL.I() + "There is no door to " + direction + "!");
+                Console.WriteLine(GeneralDataLibrary.I() + "There is no door to " + direction + "!");
             }
             else
             {
@@ -309,13 +263,13 @@ namespace ZuulCS
                     if (player.CurrentRoom.Inventory.Items.Count > 0)
                     {
 
-                        Console.WriteLine(GDL.I() + "You take all items on the ground and put them in your bag.");
-                        GDL.Break();
+                        Console.WriteLine(GeneralDataLibrary.I() + "You take all items on the ground and put them in your bag.");
+                        GeneralDataLibrary.Break();
                         for (int i = player.CurrentRoom.Inventory.Items.Count - 1; i >= 0; i--)
                         {
 
                             Item currentItem = player.CurrentRoom.Inventory.Items[i];
-                            Console.WriteLine(GDL.I(2) + "Added " + currentItem.Name);
+                            Console.WriteLine(GeneralDataLibrary.I(2) + "Added " + currentItem.Name);
                             player.CurrentRoom.Inventory.sendItem(player.Inventory, currentItem.Name);
                             if (player.checkBadItem(currentItem, 0))
                             {
@@ -331,7 +285,7 @@ namespace ZuulCS
                     else
                     {
 
-                        Console.WriteLine(GDL.I() + "Despite your hard work you find no item to pick up!");
+                        Console.WriteLine(GeneralDataLibrary.I() + "Despite your hard work you find no item to pick up!");
 
                     }
 
@@ -339,7 +293,7 @@ namespace ZuulCS
                 else
                 {
 
-                    Console.WriteLine(GDL.I() + "Not enough space in inventory to take item(s)!");
+                    Console.WriteLine(GeneralDataLibrary.I() + "Not enough space in inventory to take item(s)!");
 
                 }
 
@@ -365,7 +319,7 @@ namespace ZuulCS
                         } else
                         {
 
-                            Console.WriteLine(GDL.I() + "index is out of bounds!");
+                            Console.WriteLine(GeneralDataLibrary.I() + "index is out of bounds!");
 
                         }
                     } else {
@@ -377,7 +331,7 @@ namespace ZuulCS
                     if (item != null)
                     {
 
-                        Console.WriteLine(GDL.I(2) + "Added " + item.Name);
+                        Console.WriteLine(GeneralDataLibrary.I(2) + "Added " + item.Name);
                         player.checkBadItem(item, 0);
 
                     }
@@ -387,7 +341,7 @@ namespace ZuulCS
                 else
                 {
 
-                    Console.WriteLine(GDL.I() + "Not enough space in inventory to take item!");
+                    Console.WriteLine(GeneralDataLibrary.I() + "Not enough space in inventory to take item!");
 
                 }
 
@@ -401,7 +355,7 @@ namespace ZuulCS
             if (!command.hasSecondWord())
             {
 
-                Console.WriteLine(GDL.I() + "drop what?");
+                Console.WriteLine(GeneralDataLibrary.I() + "drop what?");
 
             }
             else
@@ -422,7 +376,7 @@ namespace ZuulCS
                     else
                     {
 
-                        Console.WriteLine(GDL.I() + "index is out of bounds!");
+                        Console.WriteLine(GeneralDataLibrary.I() + "index is out of bounds!");
 
                     }
 
@@ -435,7 +389,7 @@ namespace ZuulCS
                     if (item != null)
                 {
 
-                        Console.WriteLine(GDL.I(2) + "Dropped " + item.Name);
+                        Console.WriteLine(GeneralDataLibrary.I(2) + "Dropped " + item.Name);
 
                 }
 
@@ -447,18 +401,18 @@ namespace ZuulCS
         {
 
             Console.WriteLine(player.CurrentRoom.getLongDescription());
-            GDL.Break();
-            Console.WriteLine(GDL.I() + player.CurrentRoom.Inventory.Items.Count + " Item(s) in the room!");
-            GDL.Break();
+            GeneralDataLibrary.Break();
+            Console.WriteLine(GeneralDataLibrary.I() + player.CurrentRoom.Inventory.Items.Count + " Item(s) in the room!");
+            GeneralDataLibrary.Break();
             for (int i = 0; i < player.CurrentRoom.Inventory.Items.Count; i++)
             {
 
-                Console.WriteLine(GDL.I(2) + (i + 1) + " | " + player.CurrentRoom.Inventory.Items[i].Name + ": " + player.CurrentRoom.Inventory.Items[i].Description);
+                Console.WriteLine(GeneralDataLibrary.I(2) + (i + 1) + " | " + player.CurrentRoom.Inventory.Items[i].Name + ": " + player.CurrentRoom.Inventory.Items[i].Description);
 
             }
-            GDL.Break(2);
-            Console.WriteLine(GDL.I() + "health: " + player.Health.ToString());
-            Console.WriteLine(GDL.I() + "room in bag: " + player.Inventory.SpaceLeft);
+            GeneralDataLibrary.Break(2);
+            Console.WriteLine(GeneralDataLibrary.I() + "health: " + player.Health.ToString());
+            Console.WriteLine(GeneralDataLibrary.I() + "room in bag: " + player.Inventory.SpaceLeft);
 
         }
 
@@ -472,18 +426,18 @@ namespace ZuulCS
             {
                 str = "s";
             }
-            Console.WriteLine(GDL.I() + iC + " Item" + str + " found in bag.");
-            GDL.ShortLine(GDL.I());
-            GDL.Break();
+            Console.WriteLine(GeneralDataLibrary.I() + iC + " Item" + str + " found in bag.");
+            GeneralDataLibrary.ShortLine(GeneralDataLibrary.I());
+            GeneralDataLibrary.Break();
             for (int i = 0; i < iC; i++)
             {
 
-                Console.WriteLine(GDL.I(2) + (i+1) + ": " + player.Inventory.Items[i].Name);
+                Console.WriteLine(GeneralDataLibrary.I(2) + (i+1) + ": " + player.Inventory.Items[i].Name);
 
             }
-            GDL.Break();
-            Console.WriteLine(GDL.I() + player.Inventory.SpaceLeft + " space left in bag.");
-            GDL.Break();
+            GeneralDataLibrary.Break();
+            Console.WriteLine(GeneralDataLibrary.I() + player.Inventory.SpaceLeft + " space left in bag.");
+            GeneralDataLibrary.Break();
         }
     }
 }

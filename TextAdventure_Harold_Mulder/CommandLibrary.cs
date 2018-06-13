@@ -8,11 +8,10 @@ namespace ZuulCS
 	{
 		// an array that holds all valid command words
 		private List<string> validCommands;
-        private GeneralDataLibrary GDL;
-        private List<List<List<string>>> commandData;
+        
+        private Dictionary<string, string> commandData;
 
-        internal List<List<string>> CommandDescriptions { get => commandData[1]; }
-        internal List<List<string>> CommandUsages { get => commandData[2]; } 
+        internal Dictionary<string, string> CommandData { get => commandData; }
 
 		/**
 	     * Constructor - initialise the command words.
@@ -20,16 +19,16 @@ namespace ZuulCS
 		public CommandLibrary()
 		{
 
-            GDL = new GeneralDataLibrary();
+            
 
             initializeCommands();
 
             validCommands = new List<string>();
 
-            for(int i = 0; i < commandData[0].Count; i++)
+            foreach(string key in commandData.Keys)
             {
 
-                validCommands.Add(commandData[0][i][0]);
+                validCommands.Add(key);
 
             }
 		}
@@ -60,96 +59,22 @@ namespace ZuulCS
 					Console.Write(", ");
 				}
 			}
-			GDL.Break();
+			GeneralDataLibrary.Break();
 		}
 
         public void initializeCommands()
         {
 
-            commandData = new List<List<List<string>>>();
+            commandData = new Dictionary<string, string>();
 
-            commandData.Add(new List<List<string>>()
-            {
-
-                new List<string>{ "go" },
-                new List<string>{ "quit" },
-                new List<string>{ "help" },
-                new List<string>{ "look" },
-                new List<string>{ "clear" },
-                new List<string>{ "take" },
-                new List<string>{ "drop" },
-                new List<string>{ "bag" }
-
-            });
-
-            commandData.Add(new List<List<string>>
-            {
-
-                new List<string>{ "Shows global helpful information." },
-                new List<string>{ "Moves the player to another room." },
-                new List<string>{ "Quits the current game." },
-                new List<string>{ "Checks the current room and player condition." },
-                new List<string>{ "Clears the console of text." },
-                new List<string>{ "Picks up one or more items from the current room." },
-                new List<string>{ "Drops item into the current room." },
-
-            });
-
-            commandData.Add(new List<List<string>>()
-            {
-
-                new List<string>
-                {
-                    "'help': Shows a list of possible commands.",
-                    "'help <command>': Shows details on a specific command."
-                },
-
-                new List<string>
-                {
-
-                    "'go <direction>': Moves the player to the room in given direction."
-
-                },
-
-                new List<string>
-                {
-
-                    "'quit': Closes the current game."
-
-                },
-
-                new List<string>
-                {
-
-                    "'look': Show the current room's items, exits, description and also shows player health and bag space."
-
-                },
-
-                new List<string>
-                {
-
-                    "'clear': Removes all the messages from the console and display the current room's description."
-
-                },
-
-                new List<string>
-                {
-
-                    "'take': Attempt to take all items from the current room.",
-                    "'take <item>': picks up first item with given name from current room.",
-                    "'take <number>': Picks up item with given index."
-
-                },
-
-                new List<string>
-                {
-
-                    "'drop <item>': Drops specific item from the players bag into the current room.",
-                    "'drop <number>': drops the item at corresponing index in the bag."
-
-                }
-
-            });
+            commandData.Add("go", GeneralDataLibrary.I() + "Description: \n \n" + GeneralDataLibrary.I(2) + "Moves the player to another room. \n \n \n" + GeneralDataLibrary.I() + "Usages: \n \n" + GeneralDataLibrary.I(2) + "'go <direction>': Moves the player to the room in given direction.");
+            commandData.Add("quit", GeneralDataLibrary.I() + "Description: \n \n" + GeneralDataLibrary.I(2) + "Quits the current game. \n \n \n" + GeneralDataLibrary.I() + "Usages: \n \n" + GeneralDataLibrary.I(2) + "'quit': Closes the current game.");
+            commandData.Add("help", GeneralDataLibrary.I() + "Description: \n \n" + GeneralDataLibrary.I(2) + "Shows global helpful information. \n \n \n" + GeneralDataLibrary.I() + "Usages: \n \n" + GeneralDataLibrary.I(2) + "'help': Shows a list of possible commands. \n" + GeneralDataLibrary.I(2) + "'help <command>': Shows details on a specific command.");
+            commandData.Add("look", GeneralDataLibrary.I() + "Description: \n \n" + GeneralDataLibrary.I(2) + "Checks the current room and player condition. \n \n \n" + GeneralDataLibrary.I() + "Usages: \n \n" + GeneralDataLibrary.I(2) + "'look': Show the current room's items, exits, description and also shows player health and bag space.");
+            commandData.Add("clear", GeneralDataLibrary.I() + "Description: \n \n" + GeneralDataLibrary.I(2) + "Clears the console of text. \n \n" + GeneralDataLibrary.I() + "Usages: \n \n" + GeneralDataLibrary.I(2) + "'clear': Removes all the messages from the console and display the current room's description.");
+            commandData.Add("take", GeneralDataLibrary.I() + "Description: \n \n" + GeneralDataLibrary.I(2) + "Picks up one or more items from the current room. \n \n \n" + GeneralDataLibrary.I() + "Usages: \n \n" + GeneralDataLibrary.I(2) + "'take': Attempt to take all items from the current room. \n" + GeneralDataLibrary.I(2) + "'take <item>': picks up first item with given name from current room.\n" + GeneralDataLibrary.I(2) + "'take <number>': Picks up item with given index.");
+            commandData.Add("drop", GeneralDataLibrary.I() + "Description: \n \n" + GeneralDataLibrary.I(2) + "Drops item into the current room. \n \n \n" + GeneralDataLibrary.I() + "Usages: \n \n" + GeneralDataLibrary.I(2) + "'drop <item>': Drops specific item from the players bag into the current room. \n" + GeneralDataLibrary.I(2) + "'drop <number>': drops the item at corresponing index in the bag.");
+            commandData.Add("bag", GeneralDataLibrary.I() + "Description: \n \n" + GeneralDataLibrary.I(2) + "Shows the items in your bag \n \n \n" + GeneralDataLibrary.I() + "Usages: \n \n" + GeneralDataLibrary.I(2) + "'bag': Shows all the bag content and remaining bag space");
 
         }
 	}

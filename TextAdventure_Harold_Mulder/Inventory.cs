@@ -13,8 +13,6 @@ namespace TextAdventure_Harold_Mulder
         private int maxItems;
         private int spaceLeft;
 
-        private string indent;
-
         internal List<Item> Items { get => items; }
         internal int SpaceLeft { get => maxItems - items.Count; }
 
@@ -24,7 +22,6 @@ namespace TextAdventure_Harold_Mulder
             items = new List<Item>();
             maxItems = amount;
 
-            indent = "    ";
 
 
         }
@@ -47,12 +44,19 @@ namespace TextAdventure_Harold_Mulder
 
             }
 
-            Console.WriteLine(indent + "There are too many items here!");
+            Console.WriteLine(GeneralDataLibrary.I() + "There are too many items here!");
             return (false);
 
         }
 
         public Item sendItem(Inventory other, string key){
+
+            if (other == null)
+            {
+
+                Console.WriteLine("This inventory does not exist!");
+                return null;
+            }
 
             for (int i = items.Count-1; i >= 0; i--)
             {
@@ -70,7 +74,7 @@ namespace TextAdventure_Harold_Mulder
 
             }
 
-            Console.WriteLine(indent + "Cannot find that item!");
+            Console.WriteLine(GeneralDataLibrary.I() + "Cannot find that item!");
             return null;
 
         }

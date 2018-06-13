@@ -17,8 +17,6 @@ namespace TextAdventure_Harold_Mulder
         protected bool hasPickupEvent;
         protected bool hasRoomEvent;
 
-        protected GeneralDataLibrary GDL;
-
         internal string Name { get => name;}
         internal string Description { get => description;}
 
@@ -34,7 +32,7 @@ namespace TextAdventure_Harold_Mulder
             hasPickupEvent = false;
             hasRoomEvent = false;
 
-            GDL = new GeneralDataLibrary();
+            
                 
         }
 

@@ -13,10 +13,10 @@ namespace TextAdventure_Harold_Mulder
         private uint health;
         private uint maxHealth;
 
-        private Item firstHand;
-        private Item secondhand;
-        private Item Armor;
-        private Item Special;
+        private Item firstHand; // Main hand only weapons can be held here
+        private Item secondhand; // Second hand any item can be held here and quickly used even during battle
+        private Item armor; // This is the armor your wearing it will resist hits you take.
+        private Item special; // A special is a piece of equipment giving you a strong boost.
 
         internal uint Health { get => health; }
         internal uint MaxHealth { get => maxHealth; } 
@@ -29,6 +29,11 @@ namespace TextAdventure_Harold_Mulder
             maxHealth = 100;
             health = maxHealth;
             currentStatusEffects = new List<StatusEffect>();
+
+            firstHand = null;
+            secondhand = null;
+            armor = null;
+            special = null;
             
 
         }

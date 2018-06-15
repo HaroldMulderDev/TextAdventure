@@ -32,17 +32,34 @@ namespace ZuulCS
         private void createRooms()
 
         {
-            Room DestroyedTower, Cavern;
 
+            Room destroyedTower, mudCreek1, mudCreek2, mudCreekSide1;
+
+            
+           
             // create the rooms
-            DestroyedTower = new Room("in the remains of an old watchtower");
-            Cavern = new Room("in a hidden cavern under the old watch tower");
+            destroyedTower = new Room("in the remains of an old watchtower");
+            mudCreek1 = new Room("in a hidden cavern under the old watch tower");
+            mudCreekSide1 = new Room("in a small back area hidden at the side of the cave");
+            mudCreek2 = new Room("in a deeper part of the muddy cave");
 
             // initialise room exits
-            DestroyedTower.setExit("down", Cavern, "As you jump down into the muddy cave below you realise you won't be able to get up again.");
-            DestroyedTower.Inventory.addItem(new Item());
+            destroyedTower.setExit("down", mudCreek1, "As you jump down into the muddy cave below you realise you won't be able to get up again!");
 
-            player.CurrentRoom = DestroyedTower;  // start game outside
+            mudCreek1.setExit("north", mudCreekSide1);
+            mudCreek1.setExit("east", mudCreek2);
+
+            mudCreekSide1.setExit("south", mudCreek1);
+
+            mudCreek2.setExit("west", mudCreek1);
+
+            // Set locked states
+            mudCreekSide1.setBarred("A pile of rocks block the entrance");
+
+            // Set room items
+            destroyedTower.Inventory.addItem(new Item());
+
+            player.CurrentRoom = destroyedTower;  // start game outside
             //theatre.Inventory.addItem(new CursedCrystal());
 
         }
@@ -233,17 +250,46 @@ namespace ZuulCS
             }
             else
             {
-                if (player.CurrentRoom.ExitEvents.ContainsKey(direction))
+
+                if (nextRoom.IsTutorialLocked)
                 {
 
-                    Console.WriteLine(player.CurrentRoom.ExitEvents[direction]);
-                    GeneralDataLibrary.Break();
+                    Console.WriteLine(GeneralDataLibrary.I() + nextRoom.TutorialDescription);
 
                 }
+                else if (nextRoom.IsBarred)
+                {
 
-                player.CurrentRoom = nextRoom;
-                Console.WriteLine(player.CurrentRoom.getLongDescription());
-                player.CheckTriggers(0);
+                    Console.WriteLine(GeneralDataLibrary.I() + nextRoom.BarredDescription);
+
+                }
+                else if (nextRoom.IsCutable)
+                {
+
+                    Console.WriteLine(GeneralDataLibrary.I() + nextRoom.CutableDescription);
+
+                }
+                else if (nextRoom.IsLocked)
+                {
+
+                    Console.WriteLine(GeneralDataLibrary.I() + "You will need a '" + nextRoom.KeyToUnlock + "' key!");
+
+                }
+                else
+                {
+                    if (player.CurrentRoom.ExitEvents.ContainsKey(direction))
+                    {
+
+                        Console.WriteLine(player.CurrentRoom.ExitEvents[direction]);
+                        GeneralDataLibrary.Break();
+
+                    }
+
+                        player.CurrentRoom = nextRoom;
+                        Console.WriteLine(player.CurrentRoom.getLongDescription());
+                        player.CheckTriggers(0);
+                }
+
 
             }
         }

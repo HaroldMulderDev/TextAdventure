@@ -16,7 +16,7 @@ namespace TextAdventure_Harold_Mulder
 
             name = "sword";
             description = "A generic sword.";
-            durability = 0;
+            durability = 1;
             damage = 0;
 
             hasPickupEvent = false;

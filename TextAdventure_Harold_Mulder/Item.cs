@@ -28,7 +28,7 @@ namespace TextAdventure_Harold_Mulder
 
             name = "item";
             description = "A generic game item.";
-            durability = 0;
+            durability = 1;
 
             hasPickupEvent = false;
             hasRoomEvent = false;
@@ -51,24 +51,50 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        public virtual void use()
+        public virtual bool use()
         {
 
+            durability--;
+            if(durability <= 0)
+            {
 
+                return true;
+
+            }
+
+            return false;
 
         }
 
-        public virtual void use(Character host)
+        public virtual bool use(Character host)
         {
 
+            durability--;
 
+            if (durability <= 0)
+            {
+
+                return true;
+
+            }
+
+            return false;
 
         }
 
-        public virtual void use(Room room)
+        public virtual bool use(Room room)
         {
 
+            durability--;
 
+            if (durability <= 0)
+            {
+
+                return true;
+
+            }
+
+            return false;
 
         }
 

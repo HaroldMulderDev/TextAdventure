@@ -17,7 +17,7 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        public override void use(Room room)
+        public override bool use(Room room)
         {
 
             if (room.IsBarred)
@@ -26,7 +26,14 @@ namespace TextAdventure_Harold_Mulder
                 room.breach();
 
             }
-            base.use(room);
+            if (base.use(room))
+            {
+
+                return true;
+
+            }
+
+            return false;
 
         }
 

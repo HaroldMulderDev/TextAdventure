@@ -60,13 +60,20 @@ namespace ZuulCS
 
             // Set room items
             destroyedTower.Inventory.addItem(new Rock());
+            destroyedTower.Inventory.addItem(new Apple());
 
-            Sword sword = new TutorialSword();
+            // Mudcreek1
+            Weapon sword = new TutorialSword();
             sword.setPickupTutorialUnlock(mudCreek2);
             mudCreek1.Inventory.addItem(sword);
 
+            //mudcreekside1
+            mudCreekSide1.Inventory.addItem(new Apple());
+            mudCreekSide1.Inventory.addItem(new Apple());
+            mudCreekSide1.Inventory.addItem(new WoodArmor());
+
+            // set starting room
             player.CurrentRoom = destroyedTower;  // start game outside
-            //theatre.Inventory.addItem(new CursedCrystal());
 
         }
         /**
@@ -130,7 +137,9 @@ namespace ZuulCS
                 case "go":
                     GeneralDataLibrary.Break();
                     goRoom(command);
-                    GeneralDataLibrary.Break(2);
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     break;
                 case "quit":
                     GeneralDataLibrary.Break();
@@ -177,6 +186,13 @@ namespace ZuulCS
                 case "use":
                     GeneralDataLibrary.Break();
                     useItem(command);
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
+                    break;
+                case "equip":
+                    GeneralDataLibrary.Break();
+                    equipItem(command);
                     GeneralDataLibrary.Break();
                     GeneralDataLibrary.LongLine();
                     GeneralDataLibrary.Break();
@@ -298,9 +314,10 @@ namespace ZuulCS
 
                     }
 
-                        player.CurrentRoom = nextRoom;
-                        Console.WriteLine(player.CurrentRoom.getLongDescription());
-                        player.CheckTriggers(0);
+                    player.CurrentRoom = nextRoom;
+                    Console.WriteLine(player.CurrentRoom.getLongDescription());
+                    player.CheckTriggers(0);
+
                 }
 
 
@@ -697,6 +714,403 @@ namespace ZuulCS
 
                     }
                     break;
+
+            }
+
+        }
+
+        public void equipItem(Command command)
+        {
+            int num;
+
+            if (command.hasSecondWord())
+            {
+                if (command.hasThirdWord())
+                {
+
+                    if (int.TryParse(command.getSecondWord(), out num))
+                    {
+
+                        num++;
+
+                        if (num > 0 && num < player.Inventory.Items.Count)
+                        {
+
+                            Item i = player.Inventory.Items[num];
+
+                            switch (command.getThirdWord())
+                            {
+
+                                case "hand":
+
+                                    if (i is Armor || i is Special)
+                                    {
+
+                                        Console.WriteLine("You cannot equip armor or special items to your hand!");
+
+                                    }
+                                    else
+                                    {
+
+                                        if (player.FirstHand == null)
+                                        {
+
+                                            player.Inventory.Items.RemoveAt(num);
+                                            player.FirstHand = i;
+                                            Console.WriteLine("Equipped: " + i.Name + " to hand.");
+
+                                        }
+                                        else
+                                        {
+
+                                            Item ii = player.FirstHand;
+                                            player.Inventory.Items.RemoveAt(num);
+                                            player.Inventory.addItem(ii);
+                                            player.FirstHand = i;
+                                            Console.WriteLine("Unequiped: " + ii.Name + " from hand.");
+                                            Console.WriteLine("Equipped: " + i.Name + " to hand.");
+
+                                        }
+
+                                    }
+
+                                    break;
+
+                                case "secondhand":
+
+                                    if (i is Armor || i is Special)
+                                    {
+
+                                        Console.WriteLine("You cannot equip armor or special items to your second hand!");
+
+                                    }
+                                    else
+                                    {
+
+                                        if (player.FirstHand == null)
+                                        {
+
+                                            player.Inventory.Items.RemoveAt(num);
+                                            player.SecondHand = i;
+                                            Console.WriteLine("Equipped: " + i.Name + " to hand.");
+
+                                        }
+                                        else
+                                        {
+
+                                            Item ii = player.SecondHand;
+                                            player.Inventory.Items.RemoveAt(num);
+                                            player.Inventory.addItem(ii);
+                                            player.SecondHand = i;
+                                            Console.WriteLine("Unequiped: " + ii.Name + " from hand.");
+                                            Console.WriteLine("Equipped: " + i.Name + " to hand.");
+
+                                        }
+
+                                    }
+
+                                    break;
+
+                                case "armor":
+
+                                    if (i is Armor)
+                                    {
+
+                                        if (player.Armor == null)
+                                        {
+
+                                            player.Inventory.Items.RemoveAt(num);
+                                            player.Special = i;
+                                            Console.WriteLine("Equipped: " + i.Name + " to hand.");
+
+                                        }
+                                        else
+                                        {
+
+                                            Item ii = player.Armor;
+                                            player.Inventory.Items.RemoveAt(num);
+                                            player.Inventory.addItem(ii);
+                                            player.Special = i;
+                                            Console.WriteLine("Unequiped: " + ii.Name + " from hand.");
+                                            Console.WriteLine("Equipped: " + i.Name + " to hand.");
+
+
+                                        }
+
+                                    }
+                                    else
+                                    {
+
+                                        Console.WriteLine("You cannot equip anything but armors to the armor slot.");
+
+                                    }
+
+                                    break;
+
+                                case "special":
+
+                                    if (i is Special)
+                                    {
+
+                                        if (player.Special == null)
+                                        {
+
+                                            player.Inventory.Items.RemoveAt(num);
+                                            player.Armor = i;
+                                            Console.WriteLine("Equipped: " + i.Name + " to hand.");
+
+                                        }
+                                        else
+                                        {
+
+                                            Item ii = player.Special;
+                                            player.Inventory.Items.RemoveAt(num);
+                                            player.Inventory.addItem(ii);
+                                            player.Armor = i;
+                                            Console.WriteLine("Unequiped: " + ii.Name + " from hand.");
+                                            Console.WriteLine("Equipped: " + i.Name + " to hand.");
+
+                                        }
+
+                                    }
+                                    else
+                                    {
+
+                                        Console.WriteLine("You can only equip specials to this slot");
+
+                                    }
+
+                                    break;
+
+                                default:
+                                    Console.WriteLine("That is not an equip slot.");
+                                    break;
+                            }
+
+
+
+                        }
+
+                    }
+                    else
+                    {
+
+                        for (int i = player.Inventory.Items.Count-1; i >= 0; i--)
+                        {
+
+                            Item ii = player.Inventory.Items[i];
+
+                            if (ii.Name == command.getSecondWord())
+                            {
+
+                                switch (command.getThirdWord())
+                                {
+
+                                    case "hand":
+
+                                        if (ii is Armor || ii is Special)
+                                        {
+
+                                            Console.WriteLine("You cannot equip armor or special items to your hand!");
+
+                                        }
+                                        else
+                                        {
+
+                                            if (player.FirstHand == null)
+                                            {
+
+                                                player.Inventory.Items.RemoveAt(i);
+                                                player.FirstHand = ii;
+                                                Console.WriteLine("Equipped: " + ii.Name + " to hand.");
+
+                                            }
+                                            else
+                                            {
+
+                                                Item ir = player.FirstHand;
+                                                player.Inventory.Items.RemoveAt(i);
+                                                player.Inventory.addItem(ir);
+                                                player.FirstHand = ii;
+                                                Console.WriteLine("Unequiped: " + ir.Name + " from hand.");
+                                                Console.WriteLine("Equipped: " + ii.Name + " to hand.");
+
+                                            }
+
+                                        }
+
+                                        break;
+
+                                    case "secondhand":
+
+                                        if (ii is Armor || ii is Special)
+                                        {
+
+                                            Console.WriteLine("You cannot equip armor or special items to your second hand!");
+
+                                        }
+                                        else
+                                        {
+
+                                            if (player.FirstHand == null)
+                                            {
+
+                                                player.Inventory.Items.RemoveAt(num);
+                                                player.SecondHand = ii;
+                                                Console.WriteLine("Equipped: " + ii.Name + " to second hand.");
+
+                                            }
+                                            else
+                                            {
+
+                                                Item ir = player.SecondHand;
+                                                player.Inventory.Items.RemoveAt(i);
+                                                player.Inventory.addItem(ir);
+                                                player.SecondHand = ii;
+                                                Console.WriteLine("Unequiped: " + ir.Name + " from second hand.");
+                                                Console.WriteLine("Equipped: " + ir.Name + " to second hand.");
+
+                                            }
+
+                                        }
+
+                                        break;
+
+                                    case "armor":
+
+                                        if (i is Armor)
+                                        {
+
+                                            if (player.Armor == null)
+                                            {
+
+                                                player.Inventory.Items.RemoveAt(num);
+                                                player.Special = ii;
+                                                Console.WriteLine("Equipped: " + ii.Name + " to armor slot.");
+
+                                            }
+                                            else
+                                            {
+
+                                                Item ir = player.Armor;
+                                                player.Inventory.Items.RemoveAt(i);
+                                                player.Inventory.addItem(ir);
+                                                player.Special = ii;
+                                                Console.WriteLine("Unequiped: " + ir.Name + " from armor slot.");
+                                                Console.WriteLine("Equipped: " + ir.Name + " to armor slot.");
+
+
+                                            }
+
+                                        }
+                                        else
+                                        {
+
+                                            Console.WriteLine("You cannot equip anything but armors to the armor slot.");
+
+                                        }
+
+                                        break;
+
+                                    case "special":
+
+                                        if (i is Special)
+                                        {
+
+                                            if (player.Special == null)
+                                            {
+
+                                                player.Inventory.Items.RemoveAt(num);
+                                                player.Armor = ii;
+                                                Console.WriteLine("Equipped: " + ii.Name + " to special slot.");
+
+                                            }
+                                            else
+                                            {
+
+                                                Item ir = player.Special;
+                                                player.Inventory.Items.RemoveAt(i);
+                                                player.Inventory.addItem(ir);
+                                                player.Armor = ii;
+                                                Console.WriteLine("Unequiped: " + ir.Name + " from special slot.");
+                                                Console.WriteLine("Equipped: " + ir.Name + " to special slot.");
+
+                                            }
+
+                                        }
+                                        else
+                                        {
+
+                                            Console.WriteLine("You can only equip specials to this slot");
+
+                                        }
+
+                                        break;
+
+                                    default:
+                                        Console.WriteLine("That is not an equip slot.");
+                                        break;
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+                else
+                {
+
+                    for (int i = player.Inventory.Items.Count - 1; i >= 0; i--)
+                    {
+
+                        Item ii = player.Inventory.Items[i];
+
+                        if (ii.Name == command.getSecondWord())
+                        {
+
+                            if (ii is Armor || ii is Special)
+                            {
+
+                                Console.WriteLine("You cannot equip armor or special items to your hand!");
+
+                            }
+                            else
+                            {
+
+                                if (player.FirstHand == null)
+                                {
+
+                                    player.Inventory.Items.RemoveAt(i);
+                                    player.FirstHand = ii;
+                                    Console.WriteLine("Equipped: " + ii.Name + " to hand.");
+
+                                }
+                                else
+                                {
+
+                                    Item ir = player.FirstHand;
+                                    player.Inventory.Items.RemoveAt(i);
+                                    player.Inventory.addItem(ir);
+                                    player.FirstHand = ii;
+                                    Console.WriteLine("Unequiped: " + ir.Name + " from hand.");
+                                    Console.WriteLine("Equipped: " + ii.Name + " to hand.");
+
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+
+                Console.WriteLine("No item to equip given.");
 
             }
 

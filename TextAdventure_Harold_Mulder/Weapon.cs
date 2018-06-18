@@ -7,12 +7,12 @@ using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
-    class Sword : Item
+    class Weapon : Item
     {
 
         protected uint damage;
 
-        public Sword()
+        public Weapon()
         {
 
             name = "sword";

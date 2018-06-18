@@ -25,8 +25,8 @@ namespace TextAdventure_Harold_Mulder
 
         internal Item FirstHand { get => firstHand; set => firstHand = value; }
         internal Item SecondHand { get => secondHand; set => secondHand = value; }
-        internal Item Armor { get => armor; }
-        internal Item Special { get => special; }
+        internal Item Armor { get => armor; set => armor = value; }
+        internal Item Special { get => special; set => special = value; }
 
         public Character()
         {

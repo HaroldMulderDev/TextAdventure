@@ -20,7 +20,6 @@ namespace TextAdventure_Harold_Mulder
         {
 
             inventory = new Inventory(8);
-            FirstHand = new Sword();
 
         }
 

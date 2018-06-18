@@ -67,7 +67,16 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        public virtual bool use(Character host)
+        public virtual bool use(Character character)
+        {
+
+            Console.WriteLine("Can't use this item that way!");
+
+            return false;
+
+        }
+
+        public virtual bool use(Player host)
         {
 
             Console.WriteLine("Can't use this item that way!");

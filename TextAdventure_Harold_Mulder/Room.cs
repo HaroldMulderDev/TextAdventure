@@ -211,7 +211,14 @@ namespace ZuulCS
         {
 
             isTutorialLocked = true;
-            tutorialDescription = description;
+            tutorialDescription = GeneralDataLibrary.Note() + "'" + description + "'";
+
+        }
+
+        public void removeTutorialLock()
+        {
+
+            isTutorialLocked = false;
 
         }
 

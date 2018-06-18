@@ -56,10 +56,14 @@ namespace ZuulCS
             // Set locked states
             mudCreekSide1.setBarred("A pile of rocks block the entrance", "The rock formation shatters to pieces!");
 
+            mudCreek2.setTutorialLock("I should probably get a weapon first!");
+
             // Set room items
             destroyedTower.Inventory.addItem(new Rock());
 
-            mudCreek1.Inventory.addItem(new Sword());
+            Sword sword = new TutorialSword();
+            sword.setPickupTutorialUnlock(mudCreek2);
+            mudCreek1.Inventory.addItem(sword);
 
             player.CurrentRoom = destroyedTower;  // start game outside
             //theatre.Inventory.addItem(new CursedCrystal());
@@ -263,25 +267,25 @@ namespace ZuulCS
                 if (nextRoom.IsTutorialLocked)
                 {
 
-                    Console.WriteLine(GeneralDataLibrary.I() + nextRoom.TutorialDescription);
+                    Console.WriteLine(nextRoom.TutorialDescription);
 
                 }
                 else if (nextRoom.IsBarred)
                 {
 
-                    Console.WriteLine(GeneralDataLibrary.I() + nextRoom.BarredDescription);
+                    Console.WriteLine(nextRoom.BarredDescription);
 
                 }
                 else if (nextRoom.IsCutable)
                 {
 
-                    Console.WriteLine(GeneralDataLibrary.I() + nextRoom.CutableDescription);
+                    Console.WriteLine(nextRoom.CutableDescription);
 
                 }
                 else if (nextRoom.IsLocked)
                 {
 
-                    Console.WriteLine(GeneralDataLibrary.I() + "You will need a '" + nextRoom.KeyToUnlock + "' key!");
+                    Console.WriteLine("You will need a '" + nextRoom.KeyToUnlock + "' key!");
 
                 }
                 else
@@ -323,6 +327,14 @@ namespace ZuulCS
                             Item currentItem = player.CurrentRoom.Inventory.Items[i];
                             Console.WriteLine(GeneralDataLibrary.I(2) + "Added " + currentItem.Name);
                             player.CurrentRoom.Inventory.sendItem(player.Inventory, currentItem.Name);
+
+                            if (currentItem.HasPickupTutorialEvent)
+                            {
+
+                                currentItem.progressTutorial();
+
+                            }
+
                             if (player.checkBadItem(currentItem, 0))
                             {
 
@@ -378,6 +390,8 @@ namespace ZuulCS
 
                         item = player.CurrentRoom.Inventory.sendItem(player.Inventory, command.getSecondWord());
 
+                        
+
                     }
 
                     if (item != null)
@@ -385,6 +399,13 @@ namespace ZuulCS
 
                         Console.WriteLine(GeneralDataLibrary.I(2) + "Added " + item.Name);
                         player.checkBadItem(item, 0);
+
+                        if (item.HasPickupTutorialEvent)
+                        {
+
+                            item.progressTutorial();
+
+                        }
 
                     }
 

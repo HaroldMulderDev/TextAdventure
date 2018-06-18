@@ -14,14 +14,20 @@ namespace TextAdventure_Harold_Mulder
         protected string description;
         protected uint durability;
 
+        protected Room pickupTutorialUnlock;
+
         protected bool hasPickupEvent;
         protected bool hasRoomEvent;
+        protected bool hasPickupTutorialEvent;
 
         internal string Name { get => name;}
         internal string Description { get => description;}
 
+        internal Room PickupTutorialUnlock { get => pickupTutorialUnlock; }
+
         internal bool HasPickupEvent { get => hasPickupEvent;}
         internal bool HasRoomEvent { get => hasRoomEvent;}
+        internal bool HasPickupTutorialEvent { get => hasPickupTutorialEvent; }
 
         public Item()
         {
@@ -32,6 +38,7 @@ namespace TextAdventure_Harold_Mulder
 
             hasPickupEvent = false;
             hasRoomEvent = false;
+            hasPickupTutorialEvent = false;
 
             
                 
@@ -75,6 +82,21 @@ namespace TextAdventure_Harold_Mulder
             Console.WriteLine("Can't use this item that way!");
 
             return false;
+
+        }
+
+        public virtual void progressTutorial()
+        {
+
+            // Nothin
+
+        }
+
+        public void setPickupTutorialUnlock(Room room)
+        {
+
+            hasPickupTutorialEvent = true;
+            pickupTutorialUnlock = room;
 
         }
 

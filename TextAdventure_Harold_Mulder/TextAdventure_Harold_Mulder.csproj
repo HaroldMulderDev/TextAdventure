@@ -59,6 +59,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="StatusEffect.cs" />
     <Compile Include="Sword.cs" />
+    <Compile Include="TutorialSword.cs" />
     <Compile Include="Zuul.cs" />
   </ItemGroup>
   <ItemGroup>

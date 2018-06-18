@@ -54,10 +54,12 @@ namespace ZuulCS
             mudCreek2.setExit("west", mudCreek1);
 
             // Set locked states
-            mudCreekSide1.setBarred("A pile of rocks block the entrance");
+            mudCreekSide1.setBarred("A pile of rocks block the entrance", "The rock formation shatters to pieces!");
 
             // Set room items
-            destroyedTower.Inventory.addItem(new Item());
+            destroyedTower.Inventory.addItem(new Rock());
+
+            mudCreek1.Inventory.addItem(new Sword());
 
             player.CurrentRoom = destroyedTower;  // start game outside
             //theatre.Inventory.addItem(new CursedCrystal());
@@ -135,7 +137,7 @@ namespace ZuulCS
                     break;
                 case "look":
                     GeneralDataLibrary.Break();
-                    lookAround();
+                    lookAround(command);
                     GeneralDataLibrary.Break();
                     GeneralDataLibrary.LongLine();
                     GeneralDataLibrary.Break();
@@ -164,6 +166,13 @@ namespace ZuulCS
                 case "bag":
                     GeneralDataLibrary.Break();
                     displayBag();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
+                    break;
+                case "use":
+                    GeneralDataLibrary.Break();
+                    useItem(command);
                     GeneralDataLibrary.Break();
                     GeneralDataLibrary.LongLine();
                     GeneralDataLibrary.Break();
@@ -440,25 +449,84 @@ namespace ZuulCS
 
         }
 
-        private void lookAround()
+        private void lookAround(Command command)
         {
+            if (command.hasSecondWord())
+            {
 
-            Console.WriteLine(player.CurrentRoom.getLongDescription());
-            GeneralDataLibrary.Break();
-            if(player.CurrentRoom.Inventory.Items.Count > 0) {
-                Console.WriteLine(GeneralDataLibrary.I() + player.CurrentRoom.Inventory.Items.Count + " Item(s) in the room!");
-                GeneralDataLibrary.Break();
-                for (int i = 0; i < player.CurrentRoom.Inventory.Items.Count; i++)
+                bool showDesc = true;
+
+                if (player.CurrentRoom.getExit(command.getSecondWord()) != null)
+                {
+                    if (player.CurrentRoom.getExit(command.getSecondWord()).IsBarred)
+                    {
+
+                        Console.WriteLine(player.CurrentRoom.getExit(command.getSecondWord()).BarredDescription);
+                        showDesc = false;
+
+                    }
+
+                    if (player.CurrentRoom.getExit(command.getSecondWord()).IsCutable)
+                    {
+
+                        Console.WriteLine(player.CurrentRoom.getExit(command.getSecondWord()).CutableDescription);
+                        showDesc = false;
+
+                    }
+
+                    if (player.CurrentRoom.getExit(command.getSecondWord()).IsLocked)
+                    {
+
+                        Console.WriteLine(GeneralDataLibrary.I() + "This room is locked!");
+                        Console.WriteLine(player.CurrentRoom.getExit(command.getSecondWord()).KeyToUnlock);
+                        showDesc = false;
+
+                    }
+
+                    if (player.CurrentRoom.getExit(command.getSecondWord()).IsTutorialLocked)
+                    {
+
+                        Console.WriteLine(player.CurrentRoom.getExit(command.getSecondWord()).TutorialDescription);
+                        showDesc = false;
+
+                    }
+
+                    if (showDesc)
+                    {
+
+                        GeneralDataLibrary.Break();
+                        Console.WriteLine(GeneralDataLibrary.I() + "There is nothing blocking the entrance to " + command.getSecondWord());
+
+                    }
+                }
+                else
                 {
 
-                    Console.WriteLine(GeneralDataLibrary.I(2) + (i + 1) + " | " + player.CurrentRoom.Inventory.Items[i].Name + ": " + player.CurrentRoom.Inventory.Items[i].Description);
+                    Console.WriteLine(GeneralDataLibrary.Note() + "Could not find exit!");
 
                 }
-                GeneralDataLibrary.Break(2);
-            }
-            Console.WriteLine(GeneralDataLibrary.I() + "health: " + player.Health.ToString());
-            Console.WriteLine(GeneralDataLibrary.I() + "room in bag: " + player.Inventory.SpaceLeft);
 
+            }
+            else
+            {
+                Console.WriteLine(GeneralDataLibrary.I() + player.CurrentRoom.getLongDescription());
+                GeneralDataLibrary.Break();
+                if (player.CurrentRoom.Inventory.Items.Count > 0)
+                {
+                    Console.WriteLine(GeneralDataLibrary.I() + player.CurrentRoom.Inventory.Items.Count + " Item(s) in the room!");
+                    GeneralDataLibrary.Break();
+                    for (int i = 0; i < player.CurrentRoom.Inventory.Items.Count; i++)
+                    {
+
+                        Console.WriteLine(GeneralDataLibrary.I(2) + (i + 1) + " | " + player.CurrentRoom.Inventory.Items[i].Name + ": " + player.CurrentRoom.Inventory.Items[i].Description);
+
+                    }
+                    GeneralDataLibrary.Break(2);
+                }
+                Console.WriteLine(GeneralDataLibrary.I() + "health: " + player.Health.ToString());
+                Console.WriteLine(GeneralDataLibrary.I() + "room in bag: " + player.Inventory.SpaceLeft);
+
+            }
         }
 
         public void displayBag()
@@ -484,5 +552,134 @@ namespace ZuulCS
             Console.WriteLine(GeneralDataLibrary.I() + player.Inventory.SpaceLeft + " space left in bag.");
             GeneralDataLibrary.Break();
         }
+
+        public void useItem(Command command)
+        {
+
+            Item i = null;
+
+            switch (command.getSecondWord())
+            {
+
+                case "hand":
+                    i = player.FirstHand;
+                    break;
+                case "offhand":
+                    i = player.SecondHand;
+                    break;
+                default:
+                    int num;
+                    if (int.TryParse(command.getSecondWord(), out num))
+                    {
+
+                        if (num > 0 && num < player.Inventory.Items.Count - 1)
+                        {
+
+                            i = player.Inventory.Items[num];
+
+                        }
+
+                    }
+                    else
+                    {
+
+                        for (int ii = player.Inventory.Items.Count - 1; ii >= 0; ii--)
+                        {
+
+                            if (player.Inventory.Items[ii].Name == command.getSecondWord())
+                            {
+
+                                i = player.Inventory.Items[ii];
+
+                            }
+
+                        }
+
+                    }
+                    break;
+                
+
+            }
+
+            if (i == null)
+            {
+
+                Console.WriteLine("No item found on index, name or slot!");
+                return;
+
+            }
+
+            else
+            {
+
+                if (player.CurrentRoom.getExit(command.getThirdWord()) != null)
+                {
+
+                    if (i.use(player.CurrentRoom.getExit(command.getThirdWord())))
+                    {
+
+                        destroyItem(command.getSecondWord());
+
+                    }
+
+                }
+                else
+                {
+
+                    if (i.use())
+                    {
+
+                        destroyItem(command.getSecondWord());
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        public void destroyItem(string item)
+        {
+
+            switch (item)
+            {
+
+                case "hand":
+                    player.FirstHand = null;
+                    break;
+                case "offhand":
+                    player.SecondHand = null;
+                    break;
+                default:
+                    int num;
+                    if (int.TryParse(item, out num))
+                    {
+
+                        player.Inventory.Items.RemoveAt(num);
+
+                    }
+                    else
+                    {
+
+                        for (int ii = player.Inventory.Items.Count - 1; ii >= 0; ii--)
+                        {
+
+                            if (player.Inventory.Items[ii].Name == item)
+                            {
+
+                                player.Inventory.Items.RemoveAt(ii);
+
+                            }
+
+                        }
+
+                    }
+                    break;
+
+            }
+
+        }
+
     }
 }

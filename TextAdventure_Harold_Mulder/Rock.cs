@@ -14,6 +14,8 @@ namespace TextAdventure_Harold_Mulder
         {
 
             durability = 1;
+            name = "rock";
+            description = "A rock the perfect size for throwing";
 
         }
 
@@ -23,13 +25,24 @@ namespace TextAdventure_Harold_Mulder
             if (room.IsBarred)
             {
 
-                room.breach();
+                Console.WriteLine(GeneralDataLibrary.I() + "You throw the rock... \n");
+                if (room.breach())
+                {
 
-            }
-            if (base.use(room))
-            {
+                    durability--;
+                    if (durability <= 0) {
 
-                return true;
+                        return true;
+
+                    }
+
+                } else
+                {
+
+                    Console.WriteLine(GeneralDataLibrary.I() + "but really there was no use in it.");
+
+                }
+                
 
             }
 

@@ -18,7 +18,9 @@ namespace ZuulCS
 
         private string keyToUnlock;
         private string cutableDescription;
+        private string cutableUnlockDescription;
         private string barredDescription;
+        private string barredUnlockDescription;
         private string tutorialDescription;
 
         internal Inventory Inventory { get => inventory; }
@@ -30,10 +32,13 @@ namespace ZuulCS
 
         internal string KeyToUnlock { get => keyToUnlock; }
         internal string CutableDescription { get => cutableDescription; }
+        internal string CutableUnlockDescription { get => cutableUnlockDescription; }
         internal string BarredDescription { get => barredDescription; }
+        internal string BarredUnlockDescription { get => barredUnlockDescription; }
         internal string TutorialDescription { get => tutorialDescription; }
 
         internal Dictionary<string, string> ExitEvents { get => exitEvents; }
+        internal Dictionary<string, Room> Exits { get => exits; }
         /**
 	     * Create a room described "description". Initially, it has no exits.
 	     * "description" is something like "in a kitchen" or "in an open court
@@ -151,33 +156,54 @@ namespace ZuulCS
 
         }
 
-        public void setCutable(string description)
+        public void setCutable(string description, string unlockDescription)
         {
 
             isCutable = true;
             cutableDescription = description;
+            cutableUnlockDescription = unlockDescription;
 
         }
 
-        public void cut()
+        public bool cut()
         {
+            if (isCutable)
+            {
 
                 isCutable = false;
+                Console.WriteLine(GeneralDataLibrary.I() + barredUnlockDescription);
+                return true;
+
+            }
+
+            Console.WriteLine("This exit can not be cut!");
+            return false;
 
         }
 
-        public void setBarred(string description)
+        public void setBarred(string description, string unlockDescription)
         {
 
             isBarred = true;
             barredDescription = description;
+            barredUnlockDescription = unlockDescription;
 
         }
 
-        public void breach()
+        public bool breach()
         {
 
+            if (isBarred)
+            {
+
                 isBarred = false;
+                Console.WriteLine(GeneralDataLibrary.I() + barredUnlockDescription);
+                return true;
+
+            }
+
+            Console.WriteLine("This exit can not be breached!");
+            return false;
 
         }
 

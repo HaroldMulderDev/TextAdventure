@@ -13,6 +13,7 @@ namespace TextAdventure_Harold_Mulder
         static string shortLine = ("____________________");
 
         static string indent = "    ";
+        static string notifier = "!!!" + indent;
 
         static public void LongLine() {
 
@@ -70,6 +71,13 @@ namespace TextAdventure_Harold_Mulder
                 Console.WriteLine();
 
             }
+
+        }
+
+        static public string Note()
+        {
+
+            return notifier;
 
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
@@ -22,6 +23,25 @@ namespace TextAdventure_Harold_Mulder
             hasPickupEvent = false;
             hasRoomEvent = false;
 
+        }
+
+        public override bool use(Room room)
+        {
+
+            if (room.cut())
+            {
+                durability--;
+
+                if(durability <= 0)
+                {
+
+                    return true;
+
+                }
+
+            }
+
+            return false;
         }
 
         public virtual uint attack(Character character)

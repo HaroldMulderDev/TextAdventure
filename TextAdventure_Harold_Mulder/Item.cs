@@ -54,13 +54,7 @@ namespace TextAdventure_Harold_Mulder
         public virtual bool use()
         {
 
-            durability--;
-            if(durability <= 0)
-            {
-
-                return true;
-
-            }
+            Console.WriteLine("Cant use this item that way!");
 
             return false;
 
@@ -69,14 +63,7 @@ namespace TextAdventure_Harold_Mulder
         public virtual bool use(Character host)
         {
 
-            durability--;
-
-            if (durability <= 0)
-            {
-
-                return true;
-
-            }
+            Console.WriteLine("Can't use this item that way!");
 
             return false;
 
@@ -85,14 +72,7 @@ namespace TextAdventure_Harold_Mulder
         public virtual bool use(Room room)
         {
 
-            durability--;
-
-            if (durability <= 0)
-            {
-
-                return true;
-
-            }
+            Console.WriteLine("Can't use this item that way!");
 
             return false;
 

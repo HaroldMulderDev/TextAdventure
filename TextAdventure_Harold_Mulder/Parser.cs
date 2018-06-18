@@ -28,7 +28,7 @@ namespace ZuulCS
             string[] words = Console.ReadLine().Split(' ');
 			if (words.Length > 0) { word1 = words[0]; }
 			if (words.Length > 1) { word2 = words[1]; }
-            if(words.Length > 2) { word3 = words[3]; }
+            if (words.Length > 2) { word3 = words[2]; }
 
 			// Now check whether this word is known. If so, create a command with it.
 			if (commands.isCommand(word1)) {

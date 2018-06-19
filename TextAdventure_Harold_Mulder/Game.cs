@@ -127,77 +127,72 @@ namespace ZuulCS
             }
 
             string commandWord = command.getCommandWord();
+
+            GeneralDataLibrary.Break();
+
             switch (commandWord)
             {
                 case "help":
-                    GeneralDataLibrary.Break();
+                    
                     printHelp(command);
-                    GeneralDataLibrary.Break();
+
                     break;
                 case "go":
-                    GeneralDataLibrary.Break();
+
                     goRoom(command);
-                    GeneralDataLibrary.Break();
-                    GeneralDataLibrary.LongLine();
-                    GeneralDataLibrary.Break();
+
                     break;
                 case "quit":
-                    GeneralDataLibrary.Break();
+
                     wantToQuit = true;
-                    GeneralDataLibrary.Break();
-                    GeneralDataLibrary.LongLine();
-                    GeneralDataLibrary.Break();
+                    
                     break;
                 case "look":
-                    GeneralDataLibrary.Break();
+
                     lookAround(command);
-                    GeneralDataLibrary.Break();
-                    GeneralDataLibrary.LongLine();
-                    GeneralDataLibrary.Break();
+
                     break;
                 case "clear":
-                    GeneralDataLibrary.Break();
+
                     ClearConsole(command);
-                    GeneralDataLibrary.Break();
-                    GeneralDataLibrary.LongLine();
-                    GeneralDataLibrary.Break();
+
                     break;
                 case "take":
-                    GeneralDataLibrary.Break();
+
                     takeItem(command);
-                    GeneralDataLibrary.Break();
-                    GeneralDataLibrary.LongLine();
-                    GeneralDataLibrary.Break();
+
                     break;
                 case "drop":
-                    GeneralDataLibrary.Break();
+
                     dropItem(command);
-                    GeneralDataLibrary.Break();
-                    GeneralDataLibrary.LongLine();
-                    GeneralDataLibrary.Break();
+
                     break;
                 case "bag":
-                    GeneralDataLibrary.Break();
+
                     displayBag();
-                    GeneralDataLibrary.Break();
-                    GeneralDataLibrary.LongLine();
-                    GeneralDataLibrary.Break();
+
                     break;
                 case "use":
-                    GeneralDataLibrary.Break();
+
                     useItem(command);
-                    GeneralDataLibrary.Break();
-                    GeneralDataLibrary.LongLine();
-                    GeneralDataLibrary.Break();
+
                     break;
                 case "equip":
-                    GeneralDataLibrary.Break();
+
                     equipItem(command);
-                    GeneralDataLibrary.Break();
-                    GeneralDataLibrary.LongLine();
-                    GeneralDataLibrary.Break();
+
                     break;
+                case "unequip":
+
+                    unequipItem(command);
+
+                    break;
+                
             }
+
+            GeneralDataLibrary.Break();
+            GeneralDataLibrary.LongLine();
+            GeneralDataLibrary.Break();
 
             return wantToQuit;
         }
@@ -776,7 +771,7 @@ namespace ZuulCS
 
                                     break;
 
-                                case "secondhand":
+                                case "offhand":
 
                                     if (i is Armor || i is Special)
                                     {
@@ -941,7 +936,7 @@ namespace ZuulCS
 
                                         break;
 
-                                    case "secondhand":
+                                    case "offhand":
 
                                         if (ii is Armor || ii is Special)
                                         {
@@ -978,7 +973,7 @@ namespace ZuulCS
 
                                     case "armor":
 
-                                        if (i is Armor)
+                                        if (ii is Armor)
                                         {
 
                                             if (player.Armor == null)
@@ -1014,7 +1009,7 @@ namespace ZuulCS
 
                                     case "special":
 
-                                        if (i is Special)
+                                        if (ii is Special)
                                         {
 
                                             if (player.Special == null)
@@ -1111,6 +1106,107 @@ namespace ZuulCS
             {
 
                 Console.WriteLine("No item to equip given.");
+
+            }
+
+        }
+
+        public void unequipItem(Command command)
+        {
+
+            if (command.hasSecondWord())
+            {
+
+                switch (command.getSecondWord())
+                {
+
+                    case "hand":
+                        if(player.FirstHand != null)
+                        {
+
+                            if (player.Inventory.addItem(player.FirstHand))
+                            {
+
+                                Console.WriteLine("Unequiped: " + player.FirstHand.Name);
+                                player.FirstHand = null;
+
+                            }
+
+                        }
+                        else
+                        {
+
+                            Console.WriteLine(GeneralDataLibrary.Note() + "No item to unequip!");
+
+                        }
+
+                        break;
+                    case "offhand":
+                        if (player.SecondHand != null)
+                        {
+
+                            if (player.Inventory.addItem(player.SecondHand))
+                            {
+
+                                Console.WriteLine("Unequiped: " + player.SecondHand.Name);
+                                player.SecondHand = null;
+
+                            }
+
+                        }
+                        else
+                        {
+
+                            Console.WriteLine(GeneralDataLibrary.Note() + "No item to unequip!");
+
+                        }
+                        break;
+                    case "armor":
+                        if (player.Armor != null)
+                        {
+
+                            if (player.Inventory.addItem(player.Armor))
+                            {
+
+                                Console.WriteLine("Unequiped: " + player.Armor.Name);
+                                player.Armor = null;
+
+                            }
+                            
+                        }
+                        else
+                        {
+
+                            Console.WriteLine(GeneralDataLibrary.Note() + "No item to unequip!");
+
+                        }
+
+                        break;
+                    case "special":
+                        if (player.Special != null)
+                        {
+
+                            if (player.Inventory.addItem(player.Special))
+                            {
+
+                                Console.WriteLine("Unequiped: " + player.Special.Name);
+                                player.Special = null;
+
+                            }
+                            
+                        }
+                        else
+                        {
+
+                            Console.WriteLine(GeneralDataLibrary.Note() + "No item to unequip!");
+
+                        }
+
+                        break;
+                    default:
+                        Console.WriteLine("Can't find item slot.");
+                        break;
+                }
 
             }
 

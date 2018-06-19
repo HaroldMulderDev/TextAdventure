@@ -18,5 +18,13 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        public override bool use(Player host)
+        {
+
+            host.healByAmount(restore);
+            return true;
+
+        }
+
     }
 }

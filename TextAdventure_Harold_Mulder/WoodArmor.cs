@@ -12,7 +12,7 @@ namespace TextAdventure_Harold_Mulder
         public WoodArmor()
         {
 
-            name = "wooden armor";
+            name = "woodarmor";
             description = "a weak armor made out of wood.";
             resistance = 9;
             durability = 13;

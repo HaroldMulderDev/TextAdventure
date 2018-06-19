@@ -14,6 +14,9 @@ namespace TextAdventure_Harold_Mulder
         protected string description;
         protected uint durability;
 
+        protected uint damage;
+        protected uint resistance;
+
         protected Room pickupTutorialUnlock;
 
         protected bool hasPickupEvent;
@@ -22,6 +25,9 @@ namespace TextAdventure_Harold_Mulder
 
         internal string Name { get => name;}
         internal string Description { get => description;}
+
+        internal uint Damage { get => damage; }
+        internal uint Resistance { get => resistance; }
 
         internal Room PickupTutorialUnlock { get => pickupTutorialUnlock; }
 
@@ -35,6 +41,8 @@ namespace TextAdventure_Harold_Mulder
             name = "item";
             description = "A generic game item.";
             durability = 1;
+            damage = 0;
+
 
             hasPickupEvent = false;
             hasRoomEvent = false;

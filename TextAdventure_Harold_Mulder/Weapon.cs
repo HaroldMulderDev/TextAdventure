@@ -10,13 +10,11 @@ namespace TextAdventure_Harold_Mulder
     class Weapon : Item
     {
 
-        protected uint damage;
-
         public Weapon()
         {
 
-            name = "sword";
-            description = "A generic sword.";
+            name = "weapon";
+            description = "A generic weapon.";
             durability = 1;
             damage = 0;
 

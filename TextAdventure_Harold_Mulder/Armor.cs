@@ -9,10 +9,6 @@ namespace TextAdventure_Harold_Mulder
     class Armor : Item
     {
 
-        protected uint resistance;
-
-        internal uint Resistance { get => resistance; }
-
         public Armor()
         {
 

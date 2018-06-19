@@ -10,18 +10,23 @@ namespace TextAdventure_Harold_Mulder
     class Character
     {
 
-        private uint health;
-        private uint maxHealth;
+        protected string name;
+        protected string description;
 
-        private Item firstHand; // Main hand only weapons can be held here
-        private Item secondHand; // Second hand any item can be held here and quickly used even during battle
-        private Item armor; // This is the armor your wearing it will resist hits you take.
-        private Item special; // A special is a piece of equipment giving you a strong boost.
+        protected uint health;
+        protected uint maxHealth;
+        protected uint rawDamage;
+
+        protected Item firstHand; // Main hand only weapons can be held here
+        protected Item secondHand; // Second hand any item can be held here and quickly used even during battle
+        protected Item armor; // This is the armor your wearing it will resist hits you take.
+        protected Item special; // A special is a piece of equipment giving you a strong boost.
 
         internal uint Health { get => health; }
-        internal uint MaxHealth { get => maxHealth; } 
+        internal uint MaxHealth { get => maxHealth; }
+        internal uint RawDamage { get => rawDamage; }
 
-        private List<StatusEffect> currentStatusEffects;
+        protected List<StatusEffect> currentStatusEffects;
 
         internal Item FirstHand { get => firstHand; set => firstHand = value; }
         internal Item SecondHand { get => secondHand; set => secondHand = value; }
@@ -31,8 +36,13 @@ namespace TextAdventure_Harold_Mulder
         public Character()
         {
 
+            name = "character";
+            description = "A generic character.";
+
             maxHealth = 100;
             health = maxHealth;
+            rawDamage = 5;
+
             currentStatusEffects = new List<StatusEffect>();
 
             firstHand = null;
@@ -228,6 +238,47 @@ namespace TextAdventure_Harold_Mulder
             }
 
             return false;
+
+        }
+
+        public virtual void handleAI()
+        {
+
+            // Do stuffz
+
+        }
+
+        public void attack(Character target)
+        {
+
+            uint startdamage;
+            double damage;
+
+            if(this.firstHand is Weapon)
+            {
+
+                startdamage = firstHand.Damage;
+
+            } else
+            {
+
+                startdamage = this.rawDamage;
+
+            }
+
+            if(target.Armor != null)
+            {
+
+                float unCeiled = startdamage / target.Armor.Resistance;
+                damage = Math.Ceiling(unCeiled);
+                target.dealDamageByAmount((uint) damage);
+
+            } else
+            {
+
+                target.dealDamageByAmount(startdamage);
+
+            }
 
         }
 

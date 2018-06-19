@@ -6,10 +6,12 @@ namespace ZuulCS
 {
     public class Room
     {
+
         private string description;
         private Dictionary<string, Room> exits; // stores exits of this room.
         private Dictionary<string, string> exitEvents;
         private Inventory inventory;
+        private List<Enemy> enemies;
 
         private bool isLocked;
         private bool isBarred;

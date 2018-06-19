@@ -187,6 +187,12 @@ namespace ZuulCS
                     unequipItem(command);
 
                     break;
+
+                case "attack":
+
+                    attackEnemy(command);
+
+                    break;
                 
             }
 
@@ -1271,6 +1277,13 @@ namespace ZuulCS
                 }
 
             }
+
+        }
+
+        public void attackEnemy(Command command)
+        {
+
+
 
         }
 

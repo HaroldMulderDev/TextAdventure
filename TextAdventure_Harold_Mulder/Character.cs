@@ -13,6 +13,9 @@ namespace TextAdventure_Harold_Mulder
         protected string name;
         protected string description;
 
+        internal string Name { get => name; }
+        internal string Description { get => description; }
+
         protected uint health;
         protected uint maxHealth;
         protected uint rawDamage;
@@ -241,14 +244,7 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        public virtual void handleAI()
-        {
-
-            // Do stuffz
-
-        }
-
-        public void attack(Character target)
+        public bool attack(Character attacker, Character target)
         {
 
             uint startdamage;
@@ -266,20 +262,51 @@ namespace TextAdventure_Harold_Mulder
 
             }
 
-            if(target.Armor != null)
+            if (target.Armor != null)
             {
 
                 float unCeiled = startdamage / target.Armor.Resistance;
                 damage = Math.Ceiling(unCeiled);
-                target.dealDamageByAmount((uint) damage);
+                Console.WriteLine(GeneralDataLibrary.I() + attacker.name + " attacked " + target.name + " for " + damage + " damage!");
+                GeneralDataLibrary.Break();
+                if (target.Health <= damage)
+                {
 
-            } else
+                    target.dealDamageByAmount((uint)damage);
+                    return true;
+
+                } else {
+
+                    target.dealDamageByAmount((uint)damage);
+
+                }
+                
+
+                
+
+            }
+            else
             {
 
-                target.dealDamageByAmount(startdamage);
+                Console.WriteLine(GeneralDataLibrary.I() + attacker.name + " attacked " + target.name + " for " + startdamage + " damage!");
+
+                if (target.Health <= startdamage)
+                {
+
+                    target.dealDamageByAmount(startdamage);
+                    return true;
+
+                } else
+                {
+
+                    target.dealDamageByAmount(startdamage);
+
+                }
 
             }
 
+            return false;
+            
         }
 
     }

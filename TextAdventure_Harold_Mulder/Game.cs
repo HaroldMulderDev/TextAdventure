@@ -76,6 +76,8 @@ namespace ZuulCS
 
 
             //Set Enemies
+            
+
 
             //Mudcreek2
             mudCreek2.addEnemy(new Enemy("Mantey", "A crawling creep", 45, 4, "Raargh!"));
@@ -147,6 +149,7 @@ namespace ZuulCS
                     break;
                 case "go":
 
+                    triggerCharacterAI();
                     goRoom(command);
 
                     break;
@@ -167,11 +170,13 @@ namespace ZuulCS
                     break;
                 case "take":
 
+                    triggerCharacterAI();
                     takeItem(command);
 
                     break;
                 case "drop":
 
+                    triggerCharacterAI();
                     dropItem(command);
 
                     break;
@@ -182,22 +187,26 @@ namespace ZuulCS
                     break;
                 case "use":
 
+                    triggerCharacterAI();
                     useItem(command);
 
                     break;
                 case "equip":
 
+                    triggerCharacterAI();
                     equipItem(command);
 
                     break;
                 case "unequip":
 
+                    triggerCharacterAI();
                     unequipItem(command);
 
                     break;
 
                 case "attack":
 
+                    triggerCharacterAI();
                     attackEnemy(command);
 
                     break;
@@ -858,7 +867,7 @@ namespace ZuulCS
                                     else
                                     {
 
-                                        if (player.FirstHand == null)
+                                        if (player.SecondHand == null)
                                         {
 
                                             player.Inventory.Items.RemoveAt(num);
@@ -966,8 +975,16 @@ namespace ZuulCS
                     else
                     {
 
+                        bool completed = false;
                         for (int i = player.Inventory.Items.Count-1; i >= 0; i--)
                         {
+
+                            if (completed)
+                            {
+
+                                break;
+
+                            }
 
                             Item ii = player.Inventory.Items[i];
 
@@ -994,6 +1011,7 @@ namespace ZuulCS
                                                 player.Inventory.Items.RemoveAt(i);
                                                 player.FirstHand = ii;
                                                 Console.WriteLine("Equipped: " + ii.Name + " to hand.");
+                                                completed = true;
 
                                             }
                                             else
@@ -1005,6 +1023,7 @@ namespace ZuulCS
                                                 player.FirstHand = ii;
                                                 Console.WriteLine("Unequiped: " + ir.Name + " from hand.");
                                                 Console.WriteLine("Equipped: " + ii.Name + " to hand.");
+                                                completed = true;
 
                                             }
 
@@ -1023,12 +1042,13 @@ namespace ZuulCS
                                         else
                                         {
 
-                                            if (player.FirstHand == null)
+                                            if (player.SecondHand == null)
                                             {
 
                                                 player.Inventory.Items.RemoveAt(i);
                                                 player.SecondHand = ii;
                                                 Console.WriteLine("Equipped: " + ii.Name + " to second hand.");
+                                                completed = true;
 
                                             }
                                             else
@@ -1040,6 +1060,7 @@ namespace ZuulCS
                                                 player.SecondHand = ii;
                                                 Console.WriteLine("Unequiped: " + ir.Name + " from second hand.");
                                                 Console.WriteLine("Equipped: " + ir.Name + " to second hand.");
+                                                completed = true;
 
                                             }
 
@@ -1058,6 +1079,7 @@ namespace ZuulCS
                                                 player.Inventory.Items.RemoveAt(i);
                                                 player.Special = ii;
                                                 Console.WriteLine("Equipped: " + ii.Name + " to armor slot.");
+                                                completed = true;
 
                                             }
                                             else
@@ -1069,6 +1091,7 @@ namespace ZuulCS
                                                 player.Special = ii;
                                                 Console.WriteLine("Unequiped: " + ir.Name + " from armor slot.");
                                                 Console.WriteLine("Equipped: " + ir.Name + " to armor slot.");
+                                                completed = true;
 
 
                                             }
@@ -1094,6 +1117,7 @@ namespace ZuulCS
                                                 player.Inventory.Items.RemoveAt(i);
                                                 player.Armor = ii;
                                                 Console.WriteLine("Equipped: " + ii.Name + " to special slot.");
+                                                completed = true;
 
                                             }
                                             else
@@ -1105,6 +1129,7 @@ namespace ZuulCS
                                                 player.Armor = ii;
                                                 Console.WriteLine("Unequiped: " + ir.Name + " from special slot.");
                                                 Console.WriteLine("Equipped: " + ir.Name + " to special slot.");
+                                                completed = true;
 
                                             }
 
@@ -1291,7 +1316,53 @@ namespace ZuulCS
         public void attackEnemy(Command command)
         {
 
+            if(player.CurrentRoom.Enemies != null)
+            {
 
+                if(command.getSecondWord() != null)
+                {
+
+                    for (int i = player.CurrentRoom.Enemies.Count-1; i >= 0; i--)
+                    {
+
+                        if(player.CurrentRoom.Enemies[i].Name == command.getSecondWord())
+                        {
+
+                            if(player.attack(player, player.CurrentRoom.Enemies[i]))
+                            {
+
+                                Console.WriteLine(GeneralDataLibrary.I() + player.CurrentRoom.Enemies[i].Name + " has died!");
+                                player.CurrentRoom.Enemies.RemoveAt(i);
+
+                            } else
+                            {
+
+                                Console.WriteLine(GeneralDataLibrary.I() + player.CurrentRoom.Enemies[i].Name + " has: " + player.CurrentRoom.Enemies[i].Health + " health left!");
+
+                            }
+                            
+                            GeneralDataLibrary.Break();
+                            break;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        public void triggerCharacterAI()
+        {
+
+            for(int i = player.CurrentRoom.Enemies.Count-1; i >= 0; i--)
+            {
+
+                player.CurrentRoom.Enemies[i].HandleAi(player);
+
+            }
 
         }
 

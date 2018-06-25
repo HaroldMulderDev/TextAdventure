@@ -13,9 +13,9 @@ namespace TextAdventure_Harold_Mulder
         public TutorialSword()
         {
 
-            durability = 12;
-            damage = 3;
-            name = "iron sword";
+            durability = 15;
+            damage = 12;
+            name = "iron-sword";
             description = "A sturdy iron blade";
 
         }

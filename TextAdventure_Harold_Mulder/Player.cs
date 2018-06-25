@@ -19,7 +19,7 @@ namespace TextAdventure_Harold_Mulder
         public Player()
         {
 
-            name = "player";
+            name = "you";
             description = "The player character.";
 
             inventory = new Inventory(8);

@@ -24,12 +24,25 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        public void HandleAi(Character target)
+        public void HandleAi(Character player)
         {
 
             
-            Console.WriteLine(GeneralDataLibrary.Note() + attackShout);
-            attack(target);
+            Console.WriteLine(GeneralDataLibrary.I() + GeneralDataLibrary.Note() + attackShout);
+            GeneralDataLibrary.Break();
+            if(attack(this, player))
+            {
+
+                Console.WriteLine(GeneralDataLibrary.I() + "You have died!");
+
+            } else
+            {
+
+                Console.WriteLine(GeneralDataLibrary.I() + "You have: " + player.Health + " health left!");
+
+            }
+
+            GeneralDataLibrary.Break();
 
 
         }

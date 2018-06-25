@@ -7,7 +7,7 @@ using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
-    class Player : Character
+    public class Player : Character
     {
 
         private Room currentRoom;

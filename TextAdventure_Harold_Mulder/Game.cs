@@ -59,6 +59,8 @@ namespace ZuulCS
             mudCreek2.setTutorialLock("I should probably get a weapon first!");
 
             // Set room items
+
+            // DestroyedTower
             destroyedTower.Inventory.addItem(new Rock());
             destroyedTower.Inventory.addItem(new Apple());
 
@@ -71,6 +73,12 @@ namespace ZuulCS
             mudCreekSide1.Inventory.addItem(new Apple());
             mudCreekSide1.Inventory.addItem(new Apple());
             mudCreekSide1.Inventory.addItem(new WoodArmor());
+
+
+            //Set Enemies
+
+            //Mudcreek2
+            mudCreek2.addEnemy(new Enemy("Mantey", "A crawling creep", 45, 4, "Raargh!"));
 
             // set starting room
             player.CurrentRoom = destroyedTower;  // start game outside

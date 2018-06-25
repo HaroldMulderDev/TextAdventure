@@ -7,7 +7,7 @@ using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
-    class Character
+    public class Character
     {
 
         protected string name;

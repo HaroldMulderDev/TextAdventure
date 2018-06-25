@@ -7,7 +7,7 @@ using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
-    class Rock : Item
+    public class Rock : Item
     {
 
         public Rock()

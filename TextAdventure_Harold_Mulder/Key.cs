@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
-    class Key : Item
+    public class Key : Item
     {
 
         public Key()

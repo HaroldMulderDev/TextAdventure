@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
-    class Special : Item
+    public class Special : Item
     {
     }
 }

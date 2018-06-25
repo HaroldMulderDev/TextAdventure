@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
-    class Inventory
+    public class Inventory
     {
 
         private List<Item> items;

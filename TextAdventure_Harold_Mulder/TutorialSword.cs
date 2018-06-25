@@ -7,7 +7,7 @@ using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
-    class TutorialSword : Weapon
+    public class TutorialSword : Weapon
     {
 
         public TutorialSword()

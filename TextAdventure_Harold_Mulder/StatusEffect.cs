@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 */
 namespace TextAdventure_Harold_Mulder
 {
-    class StatusEffect
+    public class StatusEffect
     {
 
         private Character host;

@@ -41,6 +41,7 @@ namespace ZuulCS
 
         internal Dictionary<string, string> ExitEvents { get => exitEvents; }
         internal Dictionary<string, Room> Exits { get => exits; }
+        internal List<Enemy> Enemies { get => enemies; }
         /**
 	     * Create a room described "description". Initially, it has no exits.
 	     * "description" is something like "in a kitchen" or "in an open court
@@ -60,6 +61,9 @@ namespace ZuulCS
             isTutorialLocked = false;
 
             keyToUnlock = "";
+
+            enemies = new List<Enemy>();
+
         }
 
         /**
@@ -221,6 +225,20 @@ namespace ZuulCS
         {
 
             isTutorialLocked = false;
+
+        }
+
+        public void addEnemy(Enemy enemy)
+        {
+
+            enemies.Add(enemy);
+
+        }
+
+        void removeEnemy(Enemy enemy)
+        {
+
+            enemies.Remove(enemy);
 
         }
 

@@ -14,7 +14,7 @@ namespace TextAdventure_Harold_Mulder
 
             name = "woodarmor";
             description = "a weak armor made out of wood.";
-            resistance = 9;
+            resistance = 19;
             durability = 13;
 
         }

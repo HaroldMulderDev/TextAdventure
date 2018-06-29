@@ -31,6 +31,8 @@ namespace TextAdventure_Harold_Mulder
 
         protected List<StatusEffect> currentStatusEffects;
 
+        internal List<StatusEffect> CurrentStatusEffects { get => currentStatusEffects; }
+
         internal Item FirstHand { get => firstHand; set => firstHand = value; }
         internal Item SecondHand { get => secondHand; set => secondHand = value; }
         internal Item Armor { get => armor; set => armor = value; }
@@ -254,6 +256,8 @@ namespace TextAdventure_Harold_Mulder
             {
 
                 startdamage = firstHand.Damage;
+                Weapon fh = (Weapon)firstHand;
+                fh.attack(target);
 
             } else
             {
@@ -280,9 +284,6 @@ namespace TextAdventure_Harold_Mulder
                     target.dealDamageByAmount((uint)damage);
 
                 }
-                
-
-                
 
             }
             else

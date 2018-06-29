@@ -102,7 +102,40 @@ namespace ZuulCS
             returnstring += description;
             returnstring += ".\n";
             returnstring += getExitstring();
+            if(enemies.Count > 0)
+            {
+
+                if (enemies.Count > 1)
+                {
+
+                    returnstring += "\n";
+                    returnstring += "\n";
+                    returnstring += GeneralDataLibrary.Note() + "There are enemies in this room:";
+                    returnstring += "\n";
+                    returnstring += "\n";
+
+                    for (int i = enemies.Count - 1; i >= 0; i--)
+                    {
+
+                        returnstring += GeneralDataLibrary.I() + enemies[i].Description + "\n";
+
+                    }
+                } else
+                {
+
+                    returnstring += "\n";
+                    returnstring += "\n";
+                    returnstring += GeneralDataLibrary.Note() + "There is an enemy in this room:";
+                    returnstring += "\n";
+                    returnstring += "\n";
+                    returnstring += GeneralDataLibrary.I() + enemies[0].Description + "\n";
+
+                }
+
+            }
+
             return returnstring;
+
         }
 
         /**

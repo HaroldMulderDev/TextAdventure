@@ -27,6 +27,8 @@ namespace TextAdventure_Harold_Mulder
         private string name;
         private string description;
 
+        internal string Name { get => name; }
+
         private uint triggerType;
         internal uint TriggerType { get => triggerType; }
 

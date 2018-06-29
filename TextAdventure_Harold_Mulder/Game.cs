@@ -27,23 +27,32 @@ namespace ZuulCS
             //Console.WriteLine(i2.Items.Count);
         }
         /**
-         * Creates all the rooms used in the game
+         * Creates all the rooms used in the game including all the items and enemies inhabiting those rooms
          */
         private void createRooms()
 
         {
 
-            Room destroyedTower, mudCreek1, mudCreek2, mudCreekSide1;
+            Room destroyedTower, mudCreek1, mudCreek2, mudCreekSide1, mudCreek3, mudCreek4, mudCreekEntrance, mudCreek5;
 
-            
-           
+
+
             // create the rooms
+            // _________________________________________________
+
             destroyedTower = new Room("in the remains of an old watchtower");
             mudCreek1 = new Room("in a hidden cavern under the old watch tower");
             mudCreekSide1 = new Room("in a small back area hidden at the side of the cave");
             mudCreek2 = new Room("in a deeper part of the muddy cave");
+            mudCreek3 = new Room("at an crossroad in the cavern. A faint light pierces the cavern ceiling");
+            mudCreekEntrance = new Room("at the cave entrance. Bright light shines at you trough the opening");
+            mudCreek4 = new Room ("in a colder part of the cave. You start to notice the mud getting deeper");
+            mudCreek5 = new Room("in smaller part of the cave. the mud is slowing down every step");
+
 
             // initialise room exits
+            // _________________________________________________
+
             destroyedTower.setExit("down", mudCreek1, "As you jump down into the muddy cave below you realise you won't be able to get up again!");
 
             mudCreek1.setExit("north", mudCreekSide1);
@@ -52,13 +61,30 @@ namespace ZuulCS
             mudCreekSide1.setExit("south", mudCreek1);
 
             mudCreek2.setExit("west", mudCreek1);
+            mudCreek2.setExit("east", mudCreek3);
+
+            mudCreek3.setExit("west", mudCreek2);
+            mudCreek3.setExit("east", mudCreekEntrance);
+            mudCreek3.setExit("north", mudCreek4);
+
+            mudCreekEntrance.setExit("west", mudCreek3);
+
+            mudCreek4.setExit("south", mudCreek3);
+            mudCreek4.setExit("down", mudCreek5);
+
+            mudCreek5.setExit("up", mudCreek4);
+
 
             // Set locked states
+            // _________________________________________________
+
             mudCreekSide1.setBarred("A pile of rocks block the entrance", "The rock formation shatters to pieces!");
 
             mudCreek2.setTutorialLock("I should probably get a weapon first!");
 
+
             // Set room items
+            // _________________________________________________
 
             // DestroyedTower
             destroyedTower.Inventory.addItem(new Rock());
@@ -74,15 +100,28 @@ namespace ZuulCS
             mudCreekSide1.Inventory.addItem(new Apple());
             mudCreekSide1.Inventory.addItem(new WoodArmor());
 
+            //mudcreek3
+            mudCreek3.Inventory.addItem(new Apple());
+
+            //mudcreek4
+            mudCreek4.Inventory.addItem(new Scroll("scribbled", "Leonerius Theran III (Conquest Legionaire)", "4th howl, 3rd of Bright, 3225", "GreyRock Conquest outpost", GeneralDataLibrary.I() + "Its been a week since we started seeing these strange creatures lurking around the camp.\n" + GeneralDataLibrary.I() + "I've decided to go on an investigation.\n" + GeneralDataLibrary.I() + "I can use this as a log for my findings.\n\n" + GeneralDataLibrary.I() + "I've found a cave entrance behind a hill it seems these creatures are housed there at day time.\n" + GeneralDataLibrary.I() + "I'm gathering some supplies to go check it out.\n\n" + GeneralDataLibrary.I() + "The cave is cold muddy and dark I've not yet found any of these weird beasts around.\n\n" + GeneralDataLibrary.I() + "I saw one enter the cavern, these may be Mantey's.\n" + GeneralDataLibrary.I() + "I read about those creatures somewhere, some form of cursed human's they say.\n\n" + GeneralDataLibrary.I() + "I just found one he cut my heel I have to get back to camp or else I'll bleed out.\n" + GeneralDataLibrary.I() + "If you read this send help immediately!"));
+
 
             //Set Enemies
+            // _________________________________________________
             
-
-
             //Mudcreek2
-            mudCreek2.addEnemy(new Enemy("Mantey", "A crawling creep", 45, 4, "Raargh!"));
+            mudCreek2.addEnemy(new Enemy("Wounded-Mantey", "A crawling creep", 23, 4, "Raargh!"));
+
+            //Mudcreek5
+            Enemy e = new Enemy("Mantey", "An angry human like monster", 39, 4, "Hearrgh!");
+            e.FirstHand = new HeelBlade();
+            e.Armor = new WoodArmor();
+            mudCreek5.addEnemy(e);
+
 
             // set starting room
+            // _________________________________________________
             player.CurrentRoom = destroyedTower;  // start game outside
 
         }
@@ -585,7 +624,7 @@ namespace ZuulCS
             }
         }
 
-        public void displayBag()
+        private void displayBag()
         {
 
             int iC = player.Inventory.Items.Count;
@@ -664,7 +703,7 @@ namespace ZuulCS
 
         }
 
-        public void useItem(Command command)
+        private void useItem(Command command)
         {
 
             Item i = null;
@@ -701,6 +740,7 @@ namespace ZuulCS
                             {
 
                                 i = player.Inventory.Items[ii];
+                                break;
 
                             }
 
@@ -757,7 +797,7 @@ namespace ZuulCS
 
         }
 
-        public void destroyItem(string item)
+        private void destroyItem(string item)
         {
 
             switch (item)
@@ -799,7 +839,7 @@ namespace ZuulCS
 
         }
 
-        public void equipItem(Command command)
+        private void equipItem(Command command)
         {
             int num;
 
@@ -900,7 +940,7 @@ namespace ZuulCS
                                         {
 
                                             player.Inventory.Items.RemoveAt(num);
-                                            player.Special = i;
+                                            player.Armor = i;
                                             Console.WriteLine("Equipped: " + i.Name + " to armor slot.");
 
                                         }
@@ -910,7 +950,7 @@ namespace ZuulCS
                                             Item ii = player.Armor;
                                             player.Inventory.Items.RemoveAt(num);
                                             player.Inventory.addItem(ii);
-                                            player.Special = i;
+                                            player.Armor = i;
                                             Console.WriteLine("Unequiped: " + ii.Name + " from armor slot.");
                                             Console.WriteLine("Equipped: " + i.Name + " to armor slot.");
 
@@ -936,7 +976,7 @@ namespace ZuulCS
                                         {
 
                                             player.Inventory.Items.RemoveAt(num);
-                                            player.Armor = i;
+                                            player.Special = i;
                                             Console.WriteLine("Equipped: " + i.Name + " to special slot.");
 
                                         }
@@ -946,7 +986,7 @@ namespace ZuulCS
                                             Item ii = player.Special;
                                             player.Inventory.Items.RemoveAt(num);
                                             player.Inventory.addItem(ii);
-                                            player.Armor = i;
+                                            player.Special = i;
                                             Console.WriteLine("Unequiped: " + ii.Name + " from special slot.");
                                             Console.WriteLine("Equipped: " + i.Name + " to special slot.");
 
@@ -1212,7 +1252,7 @@ namespace ZuulCS
 
         }
 
-        public void unequipItem(Command command)
+        private void unequipItem(Command command)
         {
 
             if (command.hasSecondWord())
@@ -1313,7 +1353,7 @@ namespace ZuulCS
 
         }
 
-        public void attackEnemy(Command command)
+        private void attackEnemy(Command command)
         {
 
             if(player.CurrentRoom.Enemies != null)
@@ -1332,6 +1372,35 @@ namespace ZuulCS
                             {
 
                                 Console.WriteLine(GeneralDataLibrary.I() + player.CurrentRoom.Enemies[i].Name + " has died!");
+
+                                if (player.CurrentRoom.Enemies[i].FirstHand != null)
+                                {
+
+                                    player.CurrentRoom.Inventory.addItem(player.CurrentRoom.Enemies[i].FirstHand);
+
+                                }
+
+                                if (player.CurrentRoom.Enemies[i].SecondHand != null)
+                                {
+
+                                    player.CurrentRoom.Inventory.addItem(player.CurrentRoom.Enemies[i].SecondHand);
+
+                                }
+
+                                if (player.CurrentRoom.Enemies[i].Armor != null)
+                                {
+
+                                    player.CurrentRoom.Inventory.addItem(player.CurrentRoom.Enemies[i].Armor);
+
+                                }
+
+                                if (player.CurrentRoom.Enemies[i].Special != null)
+                                {
+
+                                    player.CurrentRoom.Inventory.addItem(player.CurrentRoom.Enemies[i].Special);
+
+                                }
+
                                 player.CurrentRoom.Enemies.RemoveAt(i);
 
                             } else

@@ -45,7 +45,6 @@ namespace TextAdventure_Harold_Mulder
         public virtual uint attack(Character character)
         {
 
-            character.dealDamageByAmount(damage);
             durability--;
             return damage;
 

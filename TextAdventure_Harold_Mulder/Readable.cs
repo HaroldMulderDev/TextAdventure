@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A general readable class used for scrolls, books etc.
+    */
+
     class Readable : Item
     {
 
@@ -14,6 +19,10 @@ namespace TextAdventure_Harold_Mulder
         protected string date;
         protected string recipient;
         protected string mainText;
+
+        /**
+        * Initialize readable
+        */
 
         public Readable()
         {
@@ -28,6 +37,10 @@ namespace TextAdventure_Harold_Mulder
             this.mainText = "";
 
         }
+
+        /**
+        * Output text when used in given manner
+        */
 
         public override bool use(Player player)
         {

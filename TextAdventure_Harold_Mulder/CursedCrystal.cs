@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A cursed crystal can be picked up and curses the player
+    */
+
     class CursedCrystal : Item
     {
+
+        /**
+        * Initialize the cursed crystal
+        */
 
         public CursedCrystal()
         {
@@ -19,6 +28,10 @@ namespace TextAdventure_Harold_Mulder
             hasRoomEvent = false;
 
         }
+
+        /**
+        * Setup everything that triggers when you pick up this item
+        */
 
         public override bool handlePickupEvent(Character character)
         {

@@ -4,6 +4,11 @@ using System;
 
 namespace ZuulCS
 {
+
+    /**
+    * Initialize the room
+    */
+
     public class Room
     {
 
@@ -172,6 +177,10 @@ namespace ZuulCS
 
         }
 
+        /**
+        * Set a lock on a room
+        */
+
         public void setLocked(string keyName)
         {
 
@@ -179,6 +188,10 @@ namespace ZuulCS
             isLocked = true;
 
         }
+
+        /**
+        * Unlock a room with a key
+        */
 
         public bool unlock(string keyName)
         {
@@ -195,6 +208,10 @@ namespace ZuulCS
 
         }
 
+        /**
+        * Set a room to be cutable
+        */
+
         public void setCutable(string description, string unlockDescription)
         {
 
@@ -203,6 +220,10 @@ namespace ZuulCS
             cutableUnlockDescription = unlockDescription;
 
         }
+
+        /**
+        * Cut a room's barricade
+        */
 
         public bool cut()
         {
@@ -220,6 +241,10 @@ namespace ZuulCS
 
         }
 
+        /**
+        * Set a room to be barred
+        */
+
         public void setBarred(string description, string unlockDescription)
         {
 
@@ -228,6 +253,10 @@ namespace ZuulCS
             barredUnlockDescription = unlockDescription;
 
         }
+
+        /**
+        * Breach a barred room
+        */
 
         public bool breach()
         {
@@ -246,6 +275,10 @@ namespace ZuulCS
 
         }
 
+        /**
+        * Set a tutorial lock no a room
+        */
+
         public void setTutorialLock(string description)
         {
 
@@ -254,6 +287,10 @@ namespace ZuulCS
 
         }
 
+        /**
+        * Remove the tutorial lock from a room
+        */
+
         public void removeTutorialLock()
         {
 
@@ -261,12 +298,20 @@ namespace ZuulCS
 
         }
 
+        /**
+        * Add an enemy to this room
+        */
+
         public void addEnemy(Enemy enemy)
         {
 
             enemies.Add(enemy);
 
         }
+
+        /**
+        * Remove an enemy from this room
+        */
 
         void removeEnemy(Enemy enemy)
         {

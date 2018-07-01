@@ -7,9 +7,16 @@ using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A generic weapon class used to inherit from
+    */
     public class Weapon : Item
     {
 
+        /**
+        * Initialize the weapon
+        */
         public Weapon()
         {
 
@@ -23,6 +30,9 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * Use the weapon
+        */
         public override bool use(Room room)
         {
 
@@ -42,6 +52,9 @@ namespace TextAdventure_Harold_Mulder
             return false;
         }
 
+        /**
+        * Attack using the weapon
+        */
         public virtual uint attack(Character character)
         {
 

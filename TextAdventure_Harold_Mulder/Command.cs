@@ -2,7 +2,12 @@ using System.Collections.Generic;
 
 namespace ZuulCS
 {
-	public class Command
+
+    /**
+    * Used to hold the command used
+    */
+
+    public class Command
 	{
 		private string commandWord;
 		private string secondWord;
@@ -13,7 +18,7 @@ namespace ZuulCS
 	     * either one (or both) can be null. The command word should be null to
 	     * indicate that this was a command that is not recognised by this game.
 	     */
- 
+        
 		public Command(string firstWord, string secondWord, string thirdWord)
 		{
 			this.commandWord = firstWord;

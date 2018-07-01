@@ -7,6 +7,11 @@ using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A generic item class used to inherit from
+    */
+
     public class Item
     {
 
@@ -35,6 +40,10 @@ namespace TextAdventure_Harold_Mulder
         internal bool HasRoomEvent { get => hasRoomEvent;}
         internal bool HasPickupTutorialEvent { get => hasPickupTutorialEvent; }
 
+        /**
+        * Constructor - Initialize item
+        */
+
         public Item()
         {
 
@@ -52,6 +61,10 @@ namespace TextAdventure_Harold_Mulder
                 
         }
 
+        /**
+        * This is used if the item has a room event
+        */
+
         public virtual bool handleRoomEvent(Character character)
         {
 
@@ -59,12 +72,20 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * This is used if the item has a pickup event
+        */
+
         public virtual bool handlePickupEvent(Character character)
         {
 
             return false;
 
         }
+
+        /**
+        * Does whatever an item needs to do and return true if the item ought to be destroyed
+        */
 
         public virtual bool use()
         {
@@ -75,6 +96,10 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * Does whatever an item needs to do to any character and return true if the item ought to be destroyed
+        */
+
         public virtual bool use(Character character)
         {
 
@@ -83,6 +108,10 @@ namespace TextAdventure_Harold_Mulder
             return false;
 
         }
+
+        /**
+        * Does whatever an item needs to do to the player and return true if the item ought to be destroyed
+        */
 
         public virtual bool use(Player host)
         {
@@ -93,6 +122,10 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * Does whatever an item needs to do to any room and return true if the item ought to be destroyed
+        */
+
         public virtual bool use(Room room)
         {
 
@@ -102,12 +135,20 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * This is used if the item needs to progress the tutorial
+        */
+
         public virtual void progressTutorial()
         {
 
             // Nothin
 
         }
+
+        /**
+        * This is used to initialize any item to progess the tutorial
+        */
 
         public void setPickupTutorialUnlock(Room room)
         {

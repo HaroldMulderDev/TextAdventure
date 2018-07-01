@@ -7,6 +7,10 @@ using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
+    /**
+     * A general character used to inherit from
+     */
+
     public class Character
     {
 
@@ -38,6 +42,10 @@ namespace TextAdventure_Harold_Mulder
         internal Item Armor { get => armor; set => armor = value; }
         internal Item Special { get => special; set => special = value; }
 
+        /**
+        * Initialize the character
+        */
+
         public Character()
         {
 
@@ -58,10 +66,18 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+         * Used to create a status effect on any character on the basis of set values
+         */
+
         public void createStatusEffects(Character host, uint trigger , uint effect, uint effectMultiplier, uint condition, uint endCondition, uint endConditionMultiplier, string name, string description)
         {
 
             StatusEffect s = new StatusEffect(host);
+
+            /**
+            * Loop through trigger numbers in order to set this trigger to the effect
+            */
 
             switch (trigger)
             {
@@ -73,7 +89,11 @@ namespace TextAdventure_Harold_Mulder
             }
 
             // Add all effects
-            
+
+
+            /**
+            * Enable effect on the basis of number and give it power equal to the effect multiplier
+            */
 
             switch (effect)
             {
@@ -91,11 +111,15 @@ namespace TextAdventure_Harold_Mulder
                     break;
             }
 
-            
+
 
 
             // Add all Conditions
-            
+
+            /**
+            * Go through all conditions and turn the one on based on given input number
+            */
+
             switch (condition)
             {
 
@@ -104,6 +128,10 @@ namespace TextAdventure_Harold_Mulder
                     break;
 
             }
+
+            /**
+            * Loop through endconditions and trigger the one matching to the given number and give it endconditionmuliplier as multiplier
+            */
 
             switch (endCondition)
             {
@@ -118,6 +146,10 @@ namespace TextAdventure_Harold_Mulder
 
             }
 
+            /**
+            * Set name and description and add the status effect to the list
+            */
+
             s.setName(name);
             s.setDescription(description);
             currentStatusEffects.Add(s);
@@ -125,6 +157,10 @@ namespace TextAdventure_Harold_Mulder
             
 
         }
+
+        /**
+        * Loop through status effect triggers on basis of a number if its there's any
+        */
 
         public void CheckTriggers(uint amount)
         {
@@ -159,6 +195,10 @@ namespace TextAdventure_Harold_Mulder
             }
         }
 
+        /**
+        * Deal damage to a character by amount, used by all other classes that need to damage
+        */
+
         public void dealDamageByAmount(uint amount)
         {
             if (health - amount < 0)
@@ -172,6 +212,10 @@ namespace TextAdventure_Harold_Mulder
 
 
         }
+
+        /**
+        * heal a character by a given amount, used by all other classes
+        */
 
         public void healByAmount(uint amount)
         {
@@ -187,6 +231,10 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * run a check to see if the player is alive
+        */
+
         private bool isAlive()
         {
             if (health > 0)
@@ -199,6 +247,10 @@ namespace TextAdventure_Harold_Mulder
             }
         }
 
+        /**
+        * Remove status effect from index
+        */
+
         public void removeEffect(int i)
         {
 
@@ -206,6 +258,10 @@ namespace TextAdventure_Harold_Mulder
             currentStatusEffects.RemoveAt(i);
 
         }
+
+        /**
+        * run a check for a bad item that has an effect on the character when picked up
+        */
 
         public bool checkBadItem(Item item, int e)
         {
@@ -245,6 +301,10 @@ namespace TextAdventure_Harold_Mulder
             return false;
 
         }
+
+        /**
+        * Attack another character using a calculation on basis of others armor this character's weapon and division
+        */
 
         public bool attack(Character attacker, Character target)
         {

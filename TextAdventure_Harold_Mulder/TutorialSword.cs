@@ -7,9 +7,16 @@ using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A tutorial sword to move the tutorial further
+    */
     public class TutorialSword : Weapon
     {
 
+        /**
+        * Initialize the tutorial sword
+        */
         public TutorialSword()
         {
 
@@ -20,6 +27,9 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * Progress the actual tutorial
+        */
         public override void progressTutorial()
         {
 

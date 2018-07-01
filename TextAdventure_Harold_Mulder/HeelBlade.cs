@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A weapon creates bleeding on attack
+    */
+
     class HeelBlade : Weapon
     {
+
+        /**
+        * Initialize the heelblade
+        */
 
         public HeelBlade()
         {
@@ -21,6 +30,10 @@ namespace TextAdventure_Harold_Mulder
             hasRoomEvent = false;
 
         }
+
+        /**
+        * All things that trigger upon attack an enemy
+        */
 
         public override uint attack(Character character)
         {

@@ -4,7 +4,12 @@ using System.Collections.Generic;
 
 namespace ZuulCS
 {
-	public class CommandLibrary
+
+    /**
+    * The command library that is used to check for commands
+    */
+
+    public class CommandLibrary
 	{
 		// an array that holds all valid command words
 		private List<string> validCommands;
@@ -60,6 +65,10 @@ namespace ZuulCS
 				}
 			}
 		}
+
+        /**
+        * Create all command's including their description and usage
+        */
 
         public void initializeCommands()
         {

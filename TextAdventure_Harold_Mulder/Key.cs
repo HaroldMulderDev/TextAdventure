@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A generic key item
+    */
+
     public class Key : Item
     {
+
+        /**
+        * Initialize the key
+        */
 
         public Key()
         {

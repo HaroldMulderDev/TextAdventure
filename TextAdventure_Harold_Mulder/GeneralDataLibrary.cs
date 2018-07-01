@@ -5,6 +5,11 @@ using System.Text;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A general library used for text markup purposes
+    */
+
     static public class GeneralDataLibrary
     {
 
@@ -15,11 +20,19 @@ namespace TextAdventure_Harold_Mulder
         static string indent = "    ";
         static string notifier = "!!" + indent;
 
+        /**
+        * Creates a long line in text
+        */
+
         static public void LongLine() {
 
             Console.WriteLine(longLine);
 
         }
+
+        /**
+        * Creates a midline in text
+        */
 
         static public void MidLine(string ind)
         {
@@ -28,6 +41,10 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * Creates a shortline in text
+        */
+
         static public void ShortLine(string ind)
         {
 
@@ -35,12 +52,20 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * Return a single indent
+        */
+
         static public string I()
         {
            
             return indent;
 
         }
+
+        /**
+        * Return a number of indents
+        */
 
         static public string I(int amount)
         {
@@ -55,12 +80,20 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * Creates a single break in the text
+        */
+
         static public void Break()
         {
 
             Console.WriteLine();
 
         }
+
+        /**
+        * Creates a number of breaks in text
+        */
 
         static public void Break(int amount)
         {
@@ -73,6 +106,10 @@ namespace TextAdventure_Harold_Mulder
             }
 
         }
+
+        /**
+        * returns a single notifier
+        */
 
         static public string Note()
         {

@@ -7,6 +7,11 @@ using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A rock to throw
+    */
+
     public class Rock : Item
     {
 
@@ -18,6 +23,10 @@ namespace TextAdventure_Harold_Mulder
             description = "A rock the perfect size for throwing";
 
         }
+
+        /**
+        * USe the item on a room to unlock it if its barred
+        */
 
         public override bool use(Room room)
         {

@@ -7,6 +7,11 @@ using ZuulCS;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * The player character
+    */
+
     public class Player : Character
     {
 
@@ -15,6 +20,10 @@ namespace TextAdventure_Harold_Mulder
 
         internal Room CurrentRoom { get => currentRoom; set => currentRoom = value; }
         internal Inventory Inventory { get => inventory; }
+
+        /**
+        * Initialize the player
+        */
 
         public Player()
         {

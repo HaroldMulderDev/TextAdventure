@@ -2,13 +2,21 @@
 
 namespace ZuulCS
 {
+
+    /**
+    * The parser handles command manipulation
+    */
+
     public class Parser
     {
         private CommandLibrary commands;  // holds all valid command words
 
         internal CommandLibrary Commands { get => commands; }
 
-		public Parser()
+        /**
+        * Initialize the parser
+        */
+        public Parser()
 		{
 			commands = new CommandLibrary();
 		}

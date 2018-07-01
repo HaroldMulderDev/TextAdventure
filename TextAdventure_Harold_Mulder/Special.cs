@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A currently not used special class
+    */
     public class Special : Item
     {
     }

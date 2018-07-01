@@ -19,6 +19,10 @@ using System.Threading.Tasks;
 */
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A status effect class to effect a character
+    */
     public class StatusEffect
     {
 
@@ -45,6 +49,9 @@ namespace TextAdventure_Harold_Mulder
         private uint damageAmount;
         private uint healAmount;
 
+        /**
+        * Initialize the status effect
+        */
         public StatusEffect(Character player)
         {
 
@@ -61,6 +68,9 @@ namespace TextAdventure_Harold_Mulder
         // Enable end conditions
         // =======================================================
 
+        /**
+        * Enable an end timer to this status effect that triggers when a player goes from room to room
+        */
         public void enableEndTimer(uint timer)
         {
 
@@ -70,6 +80,9 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * Enable an end when a certain amount of (unused) "bandages"are used
+        */
         public void enableEndBandage(uint amount)
         {
 
@@ -82,7 +95,10 @@ namespace TextAdventure_Harold_Mulder
 
         // Handle conditions
         // =======================================================
-        
+
+        /**
+        * Allows the effect to be always active
+        */
         public void enableAlwaysActive()
         {
 
@@ -95,6 +111,9 @@ namespace TextAdventure_Harold_Mulder
         // Handle effects
         // =======================================================
 
+        /**
+        * Enable a damage effect when triggered
+        */
         public void enableDamage(uint amount)
         {
 
@@ -103,6 +122,9 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * Enable a heal effect when triggered
+        */
         public void enableHeal(uint amount)
         {
 
@@ -111,6 +133,9 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * give immunity to host
+        */
         public void enableImmunity()
         {
 
@@ -121,6 +146,9 @@ namespace TextAdventure_Harold_Mulder
         // Handle effects
         // =======================================================
 
+        /**
+        * Enable a trigger when the host goes to another room
+        */
         public void enableRoomEnter()
         {
 
@@ -128,14 +156,13 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-
-
+        /**
+        * Handle the full effect
+        */
         public void HandleFullEffect()
         {
 
-                bool isNotBlocked = HandleConditions();
-
-                if (isNotBlocked)
+                if (HandleConditions())
                 {
 
                     HandleEffects();
@@ -146,8 +173,9 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        
-
+        /**
+        * Handle the effect conditions to see if its allowed to trigger (unused)
+        */
         public bool HandleConditions()
         {
 
@@ -155,6 +183,9 @@ namespace TextAdventure_Harold_Mulder
             return true;
         }
 
+        /**
+        * trigger the effects
+        */
         public void HandleEffects()
         {
 
@@ -191,13 +222,9 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
-        public void HandleEndConditions()
-        {
-
-
-
-        }
-
+        /**
+        * Set the effect name
+        */
         public void setName(string name)
         {
 
@@ -205,6 +232,9 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * Set the effect description
+        */
         public void setDescription(string description)
         {
 
@@ -212,6 +242,9 @@ namespace TextAdventure_Harold_Mulder
 
         }
 
+        /**
+        * Reduce the timer from the effect
+        */
         public bool reduceTimer(uint amount)
         {
             if(effectTimer - amount <= 0)

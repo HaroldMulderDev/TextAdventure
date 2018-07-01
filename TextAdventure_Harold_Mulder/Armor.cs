@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+     * A general armor class used to inherit from
+     */
+
     class Armor : Item
     {
+        
+        /**
+         * Initialize armor
+         */
 
         public Armor()
         {

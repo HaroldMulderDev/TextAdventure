@@ -4,10 +4,19 @@ using System.Collections.Generic;
 
 namespace ZuulCS
 {
+
+    /**
+    * The class used to run the whole game
+    */
+
     public class Game
     {
         private Parser parser;
         private Player player;
+
+        /**
+        * constructor - creates the player, parser and triggers the creation of rooms
+        */
 
         public Game()
         {
@@ -125,9 +134,11 @@ namespace ZuulCS
             player.CurrentRoom = destroyedTower;  // start game outside
 
         }
+
         /**
 	     *  Main play routine.  Loops until end of play.
 	     */
+
         public void play()
         {
             printWelcome();
@@ -316,6 +327,10 @@ namespace ZuulCS
             }
         }
 
+        /**
+        * Go to another room check for status effect triggers that are triggered by that and let all enemies attack
+        */
+
         private void goRoom(Command command)
         {
             if (!command.hasSecondWord())
@@ -380,6 +395,10 @@ namespace ZuulCS
 
             }
         }
+
+        /**
+        * Pick up an item from a room on the basis of second word
+        */
 
         private void takeItem(Command command)
         {
@@ -496,6 +515,10 @@ namespace ZuulCS
 
         }
 
+        /**
+        * Drop an item to the room on the basis of second word
+        */
+
         private void dropItem(Command command)
         {
 
@@ -543,6 +566,10 @@ namespace ZuulCS
             }
 
         }
+
+        /**
+        * Display information for the look command. displays player info, room info and enemies in room
+        */
 
         private void lookAround(Command command)
         {
@@ -624,6 +651,10 @@ namespace ZuulCS
             }
         }
 
+        /**
+        * Show all items in the players bag, equip slots and tell them how much space they have left
+        */
+
         private void displayBag()
         {
 
@@ -702,6 +733,10 @@ namespace ZuulCS
             }
 
         }
+
+        /**
+        * Use an item can have a lto of different targets and a can take an item index or and equip slot for the item to use
+        */
 
         private void useItem(Command command)
         {
@@ -797,6 +832,10 @@ namespace ZuulCS
 
         }
 
+        /**
+        * Destroy an item from inventory. Generally gets called from another action
+        */
+
         private void destroyItem(string item)
         {
 
@@ -838,6 +877,10 @@ namespace ZuulCS
             }
 
         }
+
+        /**
+        * Equips an item to a player equip slot so these can later be used for certain actions
+        */
 
         private void equipItem(Command command)
         {
@@ -1252,6 +1295,10 @@ namespace ZuulCS
 
         }
 
+        /**
+        * Unequip an item from on of the player's equip slot
+        */
+
         private void unequipItem(Command command)
         {
 
@@ -1353,6 +1400,10 @@ namespace ZuulCS
 
         }
 
+        /**
+        * Used to trigger the attack on the enemy
+        */
+
         private void attackEnemy(Command command)
         {
 
@@ -1422,6 +1473,10 @@ namespace ZuulCS
             }
 
         }
+
+        /**
+        * Used to trigger the enemies their AI. Used by a lot of other commands
+        */
 
         public void triggerCharacterAI()
         {

@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+     * Apples are a food source that restore health
+     */
+
     class Apple : Consumable
     {
+
+        /**
+         *  Initialize the apple
+         */
 
         public Apple()
         {
@@ -15,14 +24,6 @@ namespace TextAdventure_Harold_Mulder
             name = "apple";
             description = "a red healthy looking apple.";
             restore = 10;
-
-        }
-
-        public override bool use(Player host)
-        {
-
-            host.healByAmount(restore);
-            return true;
 
         }
 

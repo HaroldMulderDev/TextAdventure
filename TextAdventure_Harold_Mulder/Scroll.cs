@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A scroll to read from
+    */
     class Scroll : Readable
     {
 
+        /**
+        * Initialize the scroll
+        */
         public Scroll(string keyword, string author, string date, string recipient, string mainText)
         {
 

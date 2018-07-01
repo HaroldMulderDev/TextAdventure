@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * The general inventory class
+    */
+
     public class Inventory
     {
 
@@ -16,6 +21,10 @@ namespace TextAdventure_Harold_Mulder
         internal List<Item> Items { get => items; }
         internal int SpaceLeft { get => maxItems - items.Count; }
 
+        /**
+        * Initialize the inventory
+        */
+
         public Inventory(int amount)
         {
 
@@ -25,6 +34,10 @@ namespace TextAdventure_Harold_Mulder
 
 
         }
+
+        /**
+        * Add an item to the invetory and return wether or not it can fit
+        */
 
         public bool addItem(Item item) {
 
@@ -48,6 +61,10 @@ namespace TextAdventure_Harold_Mulder
             return (false);
 
         }
+
+        /**
+        * Send an item from one invetory to another inventory the item send is determined by the key
+        */
 
         public Item sendItem(Inventory other, string key){
 
@@ -78,6 +95,10 @@ namespace TextAdventure_Harold_Mulder
             return null;
 
         }
+
+        /**
+        * Send an item from one inventory to another inventory the item send is determined by index
+        */
 
         public Item sendItem(Inventory other, int i)
         {

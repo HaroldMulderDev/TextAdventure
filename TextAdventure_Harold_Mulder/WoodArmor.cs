@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace TextAdventure_Harold_Mulder
 {
+
+    /**
+    * A wooden set of armor the protect the carrier
+    */
     class WoodArmor : Armor
     {
 
+        /**
+        * Initialize the wooden armor
+        */
         public WoodArmor()
         {
 

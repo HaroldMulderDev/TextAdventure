@@ -122,7 +122,7 @@ namespace ZuulCS
                     for (int i = enemies.Count - 1; i >= 0; i--)
                     {
 
-                        returnstring += GeneralDataLibrary.I() + enemies[i].Description + "\n";
+                        returnstring += GeneralDataLibrary.I() + enemies[i].Name + "\n";
 
                     }
                 } else
@@ -133,7 +133,7 @@ namespace ZuulCS
                     returnstring += GeneralDataLibrary.Note() + "There is an enemy in this room:";
                     returnstring += "\n";
                     returnstring += "\n";
-                    returnstring += GeneralDataLibrary.I() + enemies[0].Description + "\n";
+                    returnstring += GeneralDataLibrary.I() + enemies[0].Name + "\n";
 
                 }
 

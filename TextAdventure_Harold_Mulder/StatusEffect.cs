@@ -166,8 +166,6 @@ namespace TextAdventure_Harold_Mulder
                 {
 
                     HandleEffects();
-                    
-                    HandleEndConditions();
 
                 }
 

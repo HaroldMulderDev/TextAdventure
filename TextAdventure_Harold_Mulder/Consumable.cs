@@ -31,7 +31,7 @@ namespace TextAdventure_Harold_Mulder
         * Restore health to the player on basis of items restore value
         */
 
-        public override bool use(Character host)
+        public override bool use(Player host)
         {
 
             host.healByAmount(restore);

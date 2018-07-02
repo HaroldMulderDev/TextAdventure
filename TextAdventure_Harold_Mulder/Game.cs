@@ -771,6 +771,7 @@ namespace ZuulCS
                         for (int ii = player.Inventory.Items.Count - 1; ii >= 0; ii--)
                         {
 
+                            bool hasUsed = false;
                             if (player.Inventory.Items[ii].Name == command.getSecondWord())
                             {
 

@@ -333,6 +333,7 @@ namespace TextAdventure_Harold_Mulder
                 damage = Math.Ceiling(unCeiled);
                 Console.WriteLine(GeneralDataLibrary.I() + attacker.name + " attacked " + target.name + " for " + damage + " damage!");
                 GeneralDataLibrary.Break();
+                GeneralDataLibrary.LongLine();
                 if (target.Health <= damage)
                 {
 

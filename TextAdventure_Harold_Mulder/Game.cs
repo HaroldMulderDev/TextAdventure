@@ -200,6 +200,9 @@ namespace ZuulCS
                 case "go":
 
                     triggerCharacterAI();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     goRoom(command);
 
                     break;
@@ -221,12 +224,18 @@ namespace ZuulCS
                 case "take":
 
                     triggerCharacterAI();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     takeItem(command);
 
                     break;
                 case "drop":
 
                     triggerCharacterAI();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     dropItem(command);
 
                     break;
@@ -238,18 +247,27 @@ namespace ZuulCS
                 case "use":
 
                     triggerCharacterAI();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     useItem(command);
 
                     break;
                 case "equip":
 
                     triggerCharacterAI();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     equipItem(command);
 
                     break;
                 case "unequip":
 
                     triggerCharacterAI();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     unequipItem(command);
 
                     break;
@@ -257,6 +275,9 @@ namespace ZuulCS
                 case "attack":
 
                     triggerCharacterAI();
+                    GeneralDataLibrary.Break();
+                    GeneralDataLibrary.LongLine();
+                    GeneralDataLibrary.Break();
                     attackEnemy(command);
 
                     break;
@@ -631,7 +652,7 @@ namespace ZuulCS
             }
             else
             {
-                Console.WriteLine(GeneralDataLibrary.I() + player.CurrentRoom.getLongDescription());
+                Console.WriteLine(player.CurrentRoom.getLongDescription());
                 GeneralDataLibrary.Break();
                 if (player.CurrentRoom.Inventory.Items.Count > 0)
                 {
@@ -1462,7 +1483,7 @@ namespace ZuulCS
                                 Console.WriteLine(GeneralDataLibrary.I() + player.CurrentRoom.Enemies[i].Name + " has: " + player.CurrentRoom.Enemies[i].Health + " health left!");
 
                             }
-                            
+
                             GeneralDataLibrary.Break();
                             break;
 
